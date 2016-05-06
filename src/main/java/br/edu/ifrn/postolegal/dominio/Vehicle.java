@@ -6,6 +6,8 @@
 package br.edu.ifrn.postolegal.dominio;
 
 import java.io.Serializable;
+import java.util.Set;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,8 @@ import lombok.experimental.Builder;
 @EqualsAndHashCode
 @Builder
 public class Vehicle implements Serializable{
+    public Set<Consumption> consumptions;
+
     private int year;
     private String engine;
     private String model;
