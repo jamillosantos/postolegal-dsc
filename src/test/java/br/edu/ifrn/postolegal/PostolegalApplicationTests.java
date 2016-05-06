@@ -1,4 +1,4 @@
-package br.edu.ifrn.dsc;
+package br.edu.ifrn.postolegal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
