@@ -2,3 +2,5 @@ postolegal.iml
 .idea
 .mvn
 target/
+docs/diagram.asta.lock
+docs/diagram.png.bak
