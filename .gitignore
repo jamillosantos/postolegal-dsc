@@ -4,3 +4,4 @@ postolegal.iml
 target/
 docs/diagram.asta.lock
 docs/diagram.png.bak
+/nbproject/
