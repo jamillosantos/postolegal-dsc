@@ -38,6 +38,7 @@
             <maven-surefire-report-plugin.version>2.19.1</maven-surefire-report-plugin.version>
             <maven-changelog-plugin.version>2.3</maven-changelog-plugin.version>
             <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
+            <maven-surefire-report-plugin.version>2.19.1</maven-surefire-report-plugin.version>
         </properties>
 
 	<dependencies>
@@ -142,6 +143,10 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>${maven-surefire-report-plugin.version}</version>
+                </plugin>                    
+                <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>${maven-project-info-reports-plugin.version}</version>
                     <configuration>
