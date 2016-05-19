@@ -5,7 +5,6 @@
  */
 package br.edu.ifrn.postolegal.dominio;
 
-import java.math.BigDecimal;
 import java.util.Set;
 import java.util.TreeSet;
 import static org.assertj.core.api.Assertions.assertThat;
