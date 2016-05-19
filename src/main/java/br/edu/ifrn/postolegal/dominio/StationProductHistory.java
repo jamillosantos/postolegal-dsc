@@ -3,6 +3,7 @@ package br.edu.ifrn.postolegal.dominio;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,16 +12,16 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"id"})
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_station_product_history", name = "ID_SEQUENCE", allocationSize = 1)
-public class StationProductHistory
+public class StationProductHistory implements Serializable, Comparable<StationProductHistory>
 {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
 	private Long id;
 
 	@NonNull
@@ -39,4 +40,16 @@ public class StationProductHistory
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
 	private Date date;
+
+	@Override
+	public int compareTo(StationProductHistory history)
+	{
+		int result = this.station.compareTo(history.station);
+		if (result == 0)
+		{
+			if ((result = this.product.compareTo(history.product)) == 0)
+				result = this.date.compareTo(history.date);
+		}
+		return result;
+	}
 }
