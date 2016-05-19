@@ -1,6 +1,7 @@
 package br.edu.ifrn.postolegal.dominio;
 
 import java.io.Serializable;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +16,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"product", "station"})
 @Builder
 @Entity
 @IdClass(StationProductId.class)
 public class StationProduct implements Serializable, Comparable<StationProduct>
 {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private Long productId;
 
@@ -28,20 +31,24 @@ public class StationProduct implements Serializable, Comparable<StationProduct>
 	private Long stationId;
 
 	@ManyToOne(optional = false)
-	@PrimaryKeyJoinColumn(name="employeeId", referencedColumnName="id")
+	@PrimaryKeyJoinColumn(name = "employeeId", referencedColumnName = "id")
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_station_product__product"))
-  	private Product product;
+	private Product product;
 
 	@ManyToOne(optional = false)
-	@PrimaryKeyJoinColumn(name="stationId", referencedColumnName="id")
+	@PrimaryKeyJoinColumn(name = "stationId", referencedColumnName = "id")
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_station_product__station"))
 	private Station station;
 
 	@Column(nullable = false)
 	private float price;
-        
-        @Override
-        public int compareTo(StationProduct o) {
-        return stationId.compareTo(o.stationId);
-        }
+
+	@Override
+	public int compareTo(StationProduct stationProduct)
+	{
+		int result = this.station.compareTo(stationProduct.station);
+		if (result == 0)
+			result = this.product.compareTo(stationProduct.product);
+		return result;
+	}
 }

@@ -3,6 +3,7 @@ package br.edu.ifrn.postolegal.dominio;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -11,12 +12,14 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"title"})
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_product", name = "ID_SEQUENCE", allocationSize = 1)
-public class Product
+public class Product implements Serializable, Comparable<Product>
 {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
 	private Long id;
@@ -27,4 +30,10 @@ public class Product
 	@Singular
 	@OneToMany(mappedBy = "product")
 	private Set<StationProduct> stations;
+
+	@Override
+	public int compareTo(Product product)
+	{
+		return product.title.compareTo(this.title);
+	}
 }

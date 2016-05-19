@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_vehicle", name = "ID_SEQUENCE", allocationSize = 1)
-public class Vehicle implements Serializable
+public class Vehicle implements Serializable, Comparable<Vehicle>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class Vehicle implements Serializable
 	private User user;
 
 	@Column(nullable = false)
-	private int year;
+	private Integer year;
 
 	@Column(nullable = false, length = 10)
 	private String engine;
@@ -45,4 +45,16 @@ public class Vehicle implements Serializable
 
 	@Column(nullable = false, length = 10)
 	private String licensePlate;
+
+	@Override
+	public int compareTo(Vehicle vehicle)
+	{
+		int result = this.model.compareTo(vehicle.model);
+		if (result == 0)
+		{
+			if ((result = this.year.compareTo(vehicle.year)) == 0)
+				result = this.licensePlate.compareTo(vehicle.licensePlate);
+		}
+		return result;
+	}
 }

@@ -3,6 +3,7 @@ package br.edu.ifrn.postolegal.dominio;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,12 +12,14 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"date"})
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_consumption", name = "ID_SEQUENCE", allocationSize = 1)
-public class Consumption
+public class Consumption implements Serializable, Comparable<Consumption>
 {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
 	private Long id;
@@ -42,4 +45,10 @@ public class Consumption
 	private int odometer;
 
 	private boolean valid;
+
+	@Override
+	public int compareTo(Consumption consumption)
+	{
+		return this.date.compareTo(consumption.date);
+	}
 }
