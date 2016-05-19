@@ -1,5 +1,6 @@
 package br.edu.ifrn.postolegal.dominio;
 
+import java.io.Serializable;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_station", name = "ID_SEQUENCE", allocationSize = 1)
-public class Station
+public class Station implements Serializable, Comparable<Station>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -33,4 +34,10 @@ public class Station
 	private float latitude;
 
 	private float longitude;
+        
+        
+        @Override
+        public int compareTo(Station o) {
+        return name.compareTo(o.name);
+    }
 }

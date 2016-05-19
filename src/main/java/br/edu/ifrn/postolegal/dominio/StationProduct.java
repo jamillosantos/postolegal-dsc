@@ -1,5 +1,6 @@
 package br.edu.ifrn.postolegal.dominio;
 
+import java.io.Serializable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @IdClass(StationProductId.class)
-public class StationProduct
+public class StationProduct implements Serializable, Comparable<StationProduct>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -40,4 +41,9 @@ public class StationProduct
 
 	@Column(nullable = false)
 	private float price;
+        
+        @Override
+        public int compareTo(StationProduct o) {
+        return stationId.compareTo(o.stationId);
+        }
 }
