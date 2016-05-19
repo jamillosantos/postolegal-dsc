@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_user", name = "ID_SEQUENCE", allocationSize = 1)
-public class User implements Serializable
+public class User implements Serializable, Comparable<User>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -40,4 +40,10 @@ public class User implements Serializable
 	@Singular
 	@OneToMany(mappedBy = "user")
 	private Collection<Vehicle> vehicles;
+
+	@Override
+	public int compareTo(User user)
+	{
+		return this.name.compareTo(user.name);
+	}
 }

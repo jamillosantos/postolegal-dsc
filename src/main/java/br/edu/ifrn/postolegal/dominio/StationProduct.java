@@ -20,6 +20,8 @@ import javax.persistence.*;
 @IdClass(StationProductId.class)
 public class StationProduct
 {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private Long productId;
 

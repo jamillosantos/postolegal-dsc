@@ -17,6 +17,8 @@ import java.util.Date;
 @SequenceGenerator(sequenceName = "seq_station_product_history", name = "ID_SEQUENCE", allocationSize = 1)
 public class StationProductHistory
 {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
 	private Long id;
