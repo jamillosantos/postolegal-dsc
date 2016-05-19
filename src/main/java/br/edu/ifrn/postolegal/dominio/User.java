@@ -1,27 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifrn.postolegal.dominio;
+
+import lombok.*;
+
 import java.io.Serializable;
 import java.util.Collection;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.Builder;
+
+import javax.persistence.*;
+
 /**
- *
  * @author jbull
  */
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"email"})
 @Builder
-public class User implements Serializable{
-    private String email;
-    private String name;
-    private Collection<Vehicle> vehicle;
+@Entity
+@SequenceGenerator(sequenceName = "seq_user", name = "ID_SEQUENCE", allocationSize = 1)
+public class User implements Serializable
+{
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
+	private Long id;
+
+	@Column(nullable = false, length = 60)
+	private String email;
+
+	@Column(nullable = false, length = 60)
+	private String name;
+
+	@Column(nullable = false, length = 128)
+	private String password;
+
+	@Column(nullable = false, length = 128)
+	private String salt;
+
+	@Singular
+	@OneToMany(mappedBy = "user")
+	private Collection<Vehicle> vehicles;
 }
