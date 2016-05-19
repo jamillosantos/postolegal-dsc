@@ -1,9 +1,11 @@
 package br.edu.ifrn.postolegal.dominio;
 
+import java.io.Serializable;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+
 
 /**
  * @author J. Santos &lt;jamillo@gmail.com&gt;
@@ -15,7 +17,7 @@ import java.util.Date;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_station_product_history", name = "ID_SEQUENCE", allocationSize = 1)
-public class StationProductHistory
+public class StationProductHistory implements Serializable, Comparable<StationProductHistory>
 {
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
@@ -37,4 +39,10 @@ public class StationProductHistory
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
 	private Date date;
+        
+        @Override
+        public int compareTo(StationProductHistory o) {
+        return station.compareTo(o.station);
+        }
+        
 }

@@ -82,6 +82,7 @@ public class UserTest {
     /**
      * Test of getVehicle method, of class User.
      */
+    /**
     @Test
     public void testGetVehicle() {
         System.out.println("getVehicle");
@@ -122,6 +123,7 @@ public class UserTest {
     /**
      * Test of setVehicle method, of class User.
      */
+        /**
     @Test
     public void testSetVehicle() {
         System.out.println("setVehicle");

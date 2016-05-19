@@ -82,6 +82,7 @@ public class ConsumptionTest {
     /**
      * Test of getDate method, of class Consumption.
      */
+        /**
     @Test
     public void testGetDate() {
         System.out.println("getDate");
