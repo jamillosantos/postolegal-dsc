@@ -38,6 +38,7 @@ public class ConsumptionTest
 		c.set(2016, 02, 23);
 		DATE_1 = c.getTime();
 		VEHICLE_1 = Vehicle.builder()
+			.licensePlate("AAA0001")
 			.user(user)
 			.build();
 		HISTORY_1 = StationProductHistory.builder()
@@ -48,6 +49,7 @@ public class ConsumptionTest
 		c.set(2016, 01, 01);
 		DATE_2 = c.getTime();
 		VEHICLE_2 = Vehicle.builder()
+			.licensePlate("BBB0002")
 			.user(user)
 			.build();
 		HISTORY_2 = StationProductHistory.builder()
@@ -69,14 +71,14 @@ public class ConsumptionTest
 			.isEqualTo(
 				Consumption.builder()
 					.history(HISTORY_2)
-					.vehicle(VEHICLE_2)
+					.vehicle(VEHICLE_1)
 					.date(DATE_1)
 					.totalPaid(TOTAL_PAID_2)
 					.build()
 			);
 	}
 
-	public void testNotEquals()
+	public void testNotEqualsDateDiff()
 	{
 		assertThat(
 			Consumption.builder()
@@ -91,6 +93,26 @@ public class ConsumptionTest
 					.history(HISTORY_1)
 					.vehicle(VEHICLE_1)
 					.date(DATE_2)
+					.totalPaid(TOTAL_PAID_1)
+					.build()
+			);
+	}
+
+	public void testNotEqualsVehicleDiff()
+	{
+		assertThat(
+			Consumption.builder()
+				.history(HISTORY_1)
+				.vehicle(VEHICLE_1)
+				.date(DATE_1)
+				.totalPaid(TOTAL_PAID_1)
+				.build()
+		)
+			.isNotEqualTo(
+				Consumption.builder()
+					.history(HISTORY_1)
+					.vehicle(VEHICLE_2)
+					.date(DATE_1)
 					.totalPaid(TOTAL_PAID_1)
 					.build()
 			);

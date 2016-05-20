@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(of = {"date"})
+@EqualsAndHashCode(of = {"vehicle", "date"})
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_consumption", name = "ID_SEQUENCE", allocationSize = 1)
