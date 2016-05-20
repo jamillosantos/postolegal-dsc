@@ -25,19 +25,21 @@ public class StationProduct implements Serializable, Comparable<StationProduct>
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "product_id")
 	private Long productId;
 
 	@Id
+	@Column(name = "station_id")
 	private Long stationId;
 
 	@ManyToOne(optional = false)
-	@PrimaryKeyJoinColumn(name = "employeeId", referencedColumnName = "id")
-	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_station_product__product"))
+	@PrimaryKeyJoinColumn(name = "product_id", referencedColumnName = "id")
+	@JoinColumn(name = "product_id", nullable = false, foreignKey = @ForeignKey(name = "fk_station_product__product"))
 	private Product product;
 
 	@ManyToOne(optional = false)
-	@PrimaryKeyJoinColumn(name = "stationId", referencedColumnName = "id")
-	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_station_product__station"))
+	@PrimaryKeyJoinColumn(name = "station_id", referencedColumnName = "id")
+	@JoinColumn(name = "station_id", nullable = false, foreignKey = @ForeignKey(name = "fk_station_product__station"))
 	private Station station;
 
 	@Column(nullable = false)

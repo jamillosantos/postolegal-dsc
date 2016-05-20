@@ -37,13 +37,13 @@ public class Vehicle implements Serializable, Comparable<Vehicle>
 	@Column(nullable = false)
 	private Integer year;
 
-	@Column(nullable = false, length = 10)
+	@Column(nullable = false)
 	private String engine;
 
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false)
 	private String model;
 
-	@Column(nullable = false, length = 10)
+	@Column(nullable = false)
 	private String licensePlate;
 
 	@Override

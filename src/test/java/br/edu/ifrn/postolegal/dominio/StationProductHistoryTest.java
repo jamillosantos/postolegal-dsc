@@ -2,7 +2,7 @@ package br.edu.ifrn.postolegal.dominio;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.Calendar;
@@ -40,7 +40,7 @@ public class StationProductHistoryTest
 	private static Date DATE_2;
 	private static final float PRICE_2 = 2.95f;
 
-	@BeforeClass
+	@BeforeTest
 	public void initialize()
 	{
 		Calendar c1 = Calendar.getInstance();

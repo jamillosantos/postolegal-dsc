@@ -24,7 +24,7 @@ public class Product implements Serializable, Comparable<Product>
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
 	private Long id;
 
-	@Column(nullable = false, length = 60)
+	@Column(nullable = false)
 	private String title;
 
 	@Singular

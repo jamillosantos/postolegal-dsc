@@ -2,7 +2,7 @@ package br.edu.ifrn.postolegal.dominio;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.Calendar;
@@ -26,7 +26,7 @@ public class ConsumptionTest
 	private static Vehicle VEHICLE_2;
 	private static StationProductHistory HISTORY_2;
 
-	@BeforeClass
+	@BeforeTest
 	void initialize()
 	{
 		Calendar c = Calendar.getInstance();

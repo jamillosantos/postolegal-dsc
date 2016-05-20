@@ -25,16 +25,16 @@ public class User implements Serializable, Comparable<User>
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
 	private Long id;
 
-	@Column(nullable = false, length = 60)
+	@Column(nullable = false)
 	private String email;
 
-	@Column(nullable = false, length = 60)
+	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = false, length = 128)
+	@Column(nullable = false)
 	private String password;
 
-	@Column(nullable = false, length = 128)
+	@Column(nullable = false)
 	private String salt;
 
 	@Singular
