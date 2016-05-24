@@ -1,4 +1,4 @@
-package br.edu.ifrn.postolegal.dominio;
+package br.edu.ifrn.postolegal.domain;
 
 import java.io.Serializable;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package br.edu.ifrn.postolegal.dominio;
+package br.edu.ifrn.postolegal.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.testng.annotations.Test;

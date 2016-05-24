@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifrn.postolegal.dominio;
+package br.edu.ifrn.postolegal.domain;
 
 import java.util.Set;
 import java.util.TreeSet;

@@ -1,4 +1,4 @@
-package br.edu.ifrn.postolegal.dominio;
+package br.edu.ifrn.postolegal.domain;
 
 import java.util.Iterator;
 import java.util.Set;
