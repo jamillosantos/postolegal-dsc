@@ -18,7 +18,7 @@ public class ProductService extends Service<Product>
 	@Override
 	protected void validate(Product object) throws Exception
 	{
-		if (object.getName().equals(""))
+		if (object.getTitle().equals(""))
 		{
 			throw new Exception("Preencha o nome do produto.");
 		}

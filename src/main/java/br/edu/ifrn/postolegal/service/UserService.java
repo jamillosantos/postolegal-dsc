@@ -24,13 +24,13 @@ public class UserService extends Service<User>{
     @Override
     protected void validate(User object) throws Exception{
         if (object.getName().equals("")) {
-            throws new Exception("Preencha o nome do usuário");
+            throw new Exception("Preencha o nome do usuário");
         }
         if (object.getEmail().equals("")) {
-            throws new Exception("Preencha o email do usuário");
+            throw new Exception("Preencha o email do usuário");
         }
-        if (object.getSenha().equals("")) {
-            throws new Exception("Preencha a senha do usuário");
+        if (object.getPassword().equals("")) {
+            throw new Exception("Preencha a senha do usuário");
         }
         
     }
