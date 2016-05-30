@@ -1,11 +1,7 @@
 package br.edu.ifrn.postolegal.persistence;
 
-import br.edu.ifrn.postolegal.dominio.User;
+import br.edu.ifrn.postolegal.domain.User;
 
-/**
- *
- * @author renato
- */
 public interface UserRepository extends Repository<User> {
     
 }
