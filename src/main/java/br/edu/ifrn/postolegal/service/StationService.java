@@ -19,7 +19,7 @@ public class StationService extends Service<Station>{
     @Override
     protected void validate(Station object) throws Exception{
         if (object.getName().equals("")) {
-            throws new Exception("Preencha o nome do posto");
+            throw new Exception("Preencha o nome do posto");
         }
     }
 }
