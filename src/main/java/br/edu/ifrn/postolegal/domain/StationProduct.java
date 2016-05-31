@@ -25,11 +25,11 @@ public class StationProduct implements Serializable, Comparable<StationProduct>
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "product_id")
+	@Column(name = "product_id", insertable = false, updatable = false)
 	private Long productId;
 
 	@Id
-	@Column(name = "station_id")
+	@Column(name = "station_id", insertable = false, updatable = false)
 	private Long stationId;
 
 	@ManyToOne(optional = false)
