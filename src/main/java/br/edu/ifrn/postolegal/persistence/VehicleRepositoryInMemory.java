@@ -12,6 +12,6 @@ import javax.inject.Named;
  *
  * @author jbull
  */
-public class VehicleRepositoryInMemory extends RepositoryInMemory<Vehicle> implements VehicleRepository {
-    
-}
+@Named
+public class VehicleRepositoryInMemory extends RepositoryInMemory<Vehicle> implements VehicleRepository
+{ }

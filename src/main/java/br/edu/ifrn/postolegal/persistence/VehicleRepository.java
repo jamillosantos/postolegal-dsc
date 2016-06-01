@@ -10,5 +10,4 @@ import br.edu.ifrn.postolegal.domain.Vehicle;
  * @author jbull
  */
 public interface VehicleRepository extends Repository<Vehicle>{
-    
 }

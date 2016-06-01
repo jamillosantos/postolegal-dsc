@@ -4,7 +4,7 @@ import br.edu.ifrn.postolegal.persistence.Repository;
 
 import java.util.Iterator;
 
-public class Service<T>
+public abstract class Service<T>
 {
 	private Repository<T> repository;
 
@@ -13,21 +13,21 @@ public class Service<T>
 		this.repository = repository;
 	}
 
-	protected void validate(T object) throws Exception
+	protected void validate(T object) throws ValidationException
 	{ }
 
-	void save(T object) throws Exception
+	public void save(T object) throws Exception
 	{
 		this.validate(object);
 		this.repository.save(object);
 	}
 
-	void delete(T object)
+	public void delete(T object)
 	{
 		this.repository.delete(object);
 	}
 
-	Iterator<T> iterator(T object)
+	public Iterator<T> iterator()
 	{
 		return this.repository.iterator();
 	}
