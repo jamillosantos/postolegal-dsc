@@ -2,6 +2,8 @@ package br.edu.ifrn.postolegal.persistence;
 
 import br.edu.ifrn.postolegal.PostoLegalApplication;
 import br.edu.ifrn.postolegal.domain.Product;
+import br.edu.ifrn.postolegal.domain.Station;
+import br.edu.ifrn.postolegal.domain.StationProduct;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -17,22 +19,24 @@ import javax.inject.Inject;
 @TestExecutionListeners(inheritListeners = false, listeners = {
 	DependencyInjectionTestExecutionListener.class,
 	DirtiesContextTestExecutionListener.class })
-public class ProductRepositoryInMemoryITest extends ITTest<Product>
+public class StationProductRepositoryInMemoryITest extends ITTest<StationProduct>
 {
 	@Inject
-	private ProductRepository _repository;
+	private StationProductRepository _repository;
 
 	@Override
-	protected Repository<Product> getRepository()
+	protected Repository<StationProduct> getRepository()
 	{
 		return this._repository;
 	}
 
 	@Override
-	protected Product createObject()
+	protected StationProduct createObject()
 	{
-		return Product.builder()
-			.title("Gasolina")
+		return StationProduct.builder()
+			.product(Product.builder().title("Gasolina").build())
+			.station(Station.builder().name("Posto 01").build())
+			.price(2.7f)
 			.build();
 	}
 }
