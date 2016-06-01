@@ -12,27 +12,28 @@ import javax.inject.Named;
  */
 
 /**
- *
  * @author renato
  */
 @Named
-public class UserService extends Service<User>{
-    @Inject
-    public UserService(UserRepository repository){
-        super(repository);
-    }
-    @Override
-    protected void validate(User object) throws Exception{
-        if (object.getName().equals("")) {
-            throw new Exception("Preencha o nome do usuário");
-        }
-        if (object.getEmail().equals("")) {
-            throw new Exception("Preencha o email do usuário");
-        }
-        if (object.getPassword().equals("")) {
-            throw new Exception("Preencha a senha do usuário");
-        }
-        
-    }
-    
+public class UserService extends Service<User>
+{
+	@Inject
+	public UserService(UserRepository repository)
+	{
+		super(repository);
+	}
+
+	@Override
+	public void validate(User object) throws ValidationException
+	{
+		if ((object.getName() == null) || object.getName().equals(""))
+			throw new RequiredException("nome");
+
+		if ((object.getEmail() == null) || object.getEmail().equals(""))
+			throw new RequiredException("email");
+
+		if ((object.getPassword() == null) || object.getPassword().equals(""))
+			throw new RequiredException("senha");
+	}
+
 }

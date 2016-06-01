@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author J. Santos &lt;jamillo@gmail.com&gt;
- */
 @Getter
 @Setter
 @ToString
@@ -42,7 +39,7 @@ public class Consumption implements Serializable, Comparable<Consumption>
 	private Date date;
 
 	@Column(nullable = false)
-	private int odometer;
+	private float odometer;
 
 	private boolean valid;
 
