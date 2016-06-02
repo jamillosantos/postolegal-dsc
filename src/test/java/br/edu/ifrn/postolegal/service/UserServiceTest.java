@@ -126,5 +126,5 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests{
             this._service.delete(object);
             assertThat(this._service.iterator().hasNext()).isFalse();
     }
-    //////////////// [END] Nome
+    //////////////// [END] password
 }
