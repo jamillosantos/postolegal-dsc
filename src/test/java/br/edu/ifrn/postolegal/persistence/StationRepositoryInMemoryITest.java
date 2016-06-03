@@ -37,8 +37,8 @@ public class StationRepositoryInMemoryITest extends ITTest<Station>{
 	{
 		return Station.builder()
 			.name("Posto 01")
-                        .latitude('123456')
-                        .longitude('654321')
+                        .latitude(1.5f)
+                        .longitude(1.3f)
 			.build();
 	}
 }

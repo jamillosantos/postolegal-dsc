@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class UserServiceTest extends AbstractTestNGSpringContextTests{
     @Inject
-    private UserService _user;
+    private UserService _service;
     
     private final String EMAIL_VALID = "email@email01.com";
     private final String NAME_VALID = "nome 01";
@@ -62,18 +62,6 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests{
                     .build());
     }
 
-    @Test
-    public void deleteOne() throws Exception
-    {
-            User object = User.builder()
-                    .email(EMAIL_VALID)
-                    .build();
-            this._service.save(object);
-            this._service.delete(object);
-            assertThat(this._service.iterator().hasNext()).isFalse();
-    }
-    // [END] Email
-    
     /////////////////////// Nome
     @Test(expectedExceptions = RequiredException.class)
     public void testSave_NameNull() throws Exception
@@ -89,19 +77,6 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests{
                     .build());
     }
 
-    @Test
-    public void deleteOne() throws Exception
-    {
-            User object = User.builder()
-                    .name(EMAIL_VALID)
-                    .build();
-            this._service.save(object);
-            this._service.delete(object);
-            assertThat(this._service.iterator().hasNext()).isFalse();
-    }
-    //////////////// [END] Nome
-    
-    /////////////////////// Password
     @Test(expectedExceptions = RequiredException.class)
     public void testSave_PasswordNull() throws Exception
     {
@@ -120,11 +95,11 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests{
     public void deleteOne() throws Exception
     {
             User object = User.builder()
+                    .name(NAME_VALID)
                     .password(PASSWORD_VALID)
                     .build();
             this._service.save(object);
             this._service.delete(object);
             assertThat(this._service.iterator().hasNext()).isFalse();
     }
-    //////////////// [END] password
 }

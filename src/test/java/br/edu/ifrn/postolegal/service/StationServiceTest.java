@@ -1,7 +1,5 @@
 package br.edu.ifrn.postolegal.service;
 
-package br.edu.ifrn.postolegal.service;
-
 import br.edu.ifrn.postolegal.PostoLegalApplication;
 import br.edu.ifrn.postolegal.domain.Station;
 import org.springframework.boot.test.IntegrationTest;
@@ -30,22 +28,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class StationServiceTest extends AbstractTestNGSpringContextTests{
     @Inject
-    private StationService _station;
+    private StationService _service;
     
     private final String NAME_VALID = "nome 01";
-    private final String LATITUDE_VALID = "654321";
-    private final String LONGITUDE_VALID = "123456";
+    private final float LATITUDE_VALID = 1.3f;
+    private final float LONGITUDE_VALID = 1.1f;
     
         @Test
     public void testSave_Success() throws Exception
     {
             this._service.save(Station.builder()
                     .name(NAME_VALID)
-                    .build());
-            this._service.save(Station.builder()
                     .latitude(LATITUDE_VALID)
-                    .build());
-            this._service.save(Station.builder()
                     .longitude(LONGITUDE_VALID)
                     .build());
     }
@@ -65,18 +59,6 @@ public class StationServiceTest extends AbstractTestNGSpringContextTests{
                     .build());
     }
 
-    @Test
-    public void deleteOne() throws Exception
-    {
-            Station object = Station.builder()
-                    .name(NAME_VALID)
-                    .build();
-            this._service.save(object);
-            this._service.delete(object);
-            assertThat(this._service.iterator().hasNext()).isFalse();
-    }
-    // [END] Name
-    
     /////////////////////// Latitude
     @Test(expectedExceptions = RequiredException.class)
     public void testSave_LatitudeNull() throws Exception
@@ -84,26 +66,6 @@ public class StationServiceTest extends AbstractTestNGSpringContextTests{
             this._service.save(Station.builder().build());
     }
 
-    @Test(expectedExceptions = RequiredException.class)
-    public void testSave_LatitudeEmpty() throws Exception
-    {
-            this._service.save(Station.builder()
-                    .latitude("")
-                    .build());
-    }
-
-    @Test
-    public void deleteOne() throws Exception
-    {
-            Station object = Station.builder()
-                    .latitude(LATITUDE_VALID)
-                    .build();
-            this._service.save(object);
-            this._service.delete(object);
-            assertThat(this._service.iterator().hasNext()).isFalse();
-    }
-    //////////////// [END] Latitude
-    
     /////////////////////// Longitude
     @Test(expectedExceptions = RequiredException.class)
     public void testSave_LongitudeNull() throws Exception
@@ -111,18 +73,12 @@ public class StationServiceTest extends AbstractTestNGSpringContextTests{
             this._service.save(Station.builder().build());
     }
 
-    @Test(expectedExceptions = RequiredException.class)
-    public void testSave_LongitudeEmpty() throws Exception
-    {
-            this._service.save(Station.builder()
-                    .longitude("")
-                    .build());
-    }
-
     @Test
     public void deleteOne() throws Exception
     {
             Station object = Station.builder()
+                    .name(NAME_VALID)
+                    .latitude(LATITUDE_VALID)
                     .longitude(LONGITUDE_VALID)
                     .build();
             this._service.save(object);

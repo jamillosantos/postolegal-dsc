@@ -36,8 +36,8 @@ public class UserRepositoryInMemoryITest extends ITTest<User> {
 	{
 		return User.builder()
 			.name("Fulano")
-                        .email('fulano@fulano.com')
-                        .password('123456')
+                        .email("fulano@fulano.com")
+                        .password("123456")
 			.build();
 	}
 }
