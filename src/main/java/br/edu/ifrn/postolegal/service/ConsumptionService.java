@@ -24,13 +24,13 @@ public class ConsumptionService extends Service<Consumption>
 		if (object.getHistory() == null)
 			throw new RequiredException("histórico");
 
-		if (object.getTotalPaid() > 0)
+		if (object.getTotalPaid() <= 0)
 			throw new BiggerThanZeroException("total pago");
 
-		if (object.getDate() != null)
+		if (object.getDate() == null)
 			throw new RequiredException("data");
 
-		if (object.getOdometer() >= 0)
+		if (object.getOdometer() < 0)
 			throw new NonNegativeException("odômetro");
 	}
 }

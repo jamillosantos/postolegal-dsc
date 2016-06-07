@@ -4,11 +4,7 @@ import br.edu.ifrn.postolegal.PostoLegalApplication;
 import br.edu.ifrn.postolegal.domain.Product;
 import br.edu.ifrn.postolegal.domain.Station;
 import br.edu.ifrn.postolegal.domain.StationProductHistory;
-import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
@@ -21,11 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@IntegrationTest
-@TestExecutionListeners(inheritListeners = false, listeners = {
-	DependencyInjectionTestExecutionListener.class,
-	DirtiesContextTestExecutionListener.class })
-public class StationProductHistoryServiceTest extends AbstractTestNGSpringContextTests
+@Test
+public class StationProductHistoryServiceIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
 	private StationProductHistoryService _service;
@@ -58,7 +51,7 @@ public class StationProductHistoryServiceTest extends AbstractTestNGSpringContex
 		);
 	}
 
-	@Test(expectedExceptions = RequiredException.class)
+	@Test(expectedExceptions = NullPointerException.class)
 	public void testSave_ProductNull() throws Exception
 	{
 		this._service.save(
@@ -70,7 +63,7 @@ public class StationProductHistoryServiceTest extends AbstractTestNGSpringContex
 		);
 	}
 
-	@Test(expectedExceptions = RequiredException.class)
+	@Test(expectedExceptions = NullPointerException.class)
 	public void testSave_StationNull() throws Exception
 	{
 		this._service.save(
@@ -115,7 +108,7 @@ public class StationProductHistoryServiceTest extends AbstractTestNGSpringContex
 			StationProductHistory.builder()
 				.product(PRODUCT_VALID)
 				.station(STATION_VALID)
-				.price(PRICE_INVALID_2)
+				.price(PRICE_VALID)
 				.build()
 		);
 	}

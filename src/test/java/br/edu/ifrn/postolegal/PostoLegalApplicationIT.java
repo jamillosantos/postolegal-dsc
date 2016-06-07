@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-public class PostoLegalApplicationITest extends AbstractTestNGSpringContextTests
+public class PostoLegalApplicationIT extends AbstractTestNGSpringContextTests
 {
 	@Test
 	public void contextLoads()

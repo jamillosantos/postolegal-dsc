@@ -5,14 +5,20 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class ITTest<T> extends AbstractTestNGSpringContextTests
+public abstract class ITAbstract<T> extends AbstractTestNGSpringContextTests
 {
 	protected abstract Repository<T> getRepository();
 
 	protected abstract T createObject();
 
 	@Test
-	public void saveOne()
+	public void testInjection()
+	{
+		assertThat(this.getRepository()).isNotNull();
+	}
+
+	@Test
+	public void testSaveOne()
 	{
 		T object = this.createObject();
 		this.getRepository().save(object);
@@ -20,8 +26,12 @@ public abstract class ITTest<T> extends AbstractTestNGSpringContextTests
 	}
 
 	@Test
-	public void deleteOne()
+	public void testDeleteOne()
 	{
+		// Clean all possible
+		while (this.getRepository().iterator().hasNext())
+			this.getRepository().delete(this.getRepository().iterator().next());
+		//
 		T object = this.createObject();
 		this.getRepository().save(object);
 		this.getRepository().delete(object);

@@ -21,7 +21,7 @@ public class StationProductService extends Service<StationProduct>
 		if (object.getProduct() == null)
 			throw new RequiredException("produto");
 
-		if (object.getPrice() > 0)
+		if (object.getPrice() <= 0)
 			throw new BiggerThanZeroException("preço");
 
 		if (object.getStation() == null)

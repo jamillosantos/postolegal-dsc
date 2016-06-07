@@ -39,6 +39,12 @@ public class Station implements Serializable, Comparable<Station>
 	@Override
 	public int compareTo(Station station)
 	{
+		if ((this.id == null) && (station.id == null))
+			return 0;
+		if (this.id == null)
+			return -1;
+		if (station.id == null)
+			return 1;
 		return station.id.compareTo(this.id);
 	}
 }

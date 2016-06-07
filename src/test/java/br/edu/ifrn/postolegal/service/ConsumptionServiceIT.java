@@ -3,9 +3,6 @@ package br.edu.ifrn.postolegal.service;
 import br.edu.ifrn.postolegal.PostoLegalApplication;
 import br.edu.ifrn.postolegal.domain.*;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
@@ -19,10 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
 @Test
-@TestExecutionListeners(inheritListeners = false, listeners = {
-	DependencyInjectionTestExecutionListener.class,
-	DirtiesContextTestExecutionListener.class })
-public class ConsumptionServiceTest extends AbstractTestNGSpringContextTests
+public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
 	private ConsumptionService _service;
@@ -70,7 +64,7 @@ public class ConsumptionServiceTest extends AbstractTestNGSpringContextTests
 		);
 	}
 
-	@Test(expectedExceptions = RequiredException.class)
+	@Test(expectedExceptions = NullPointerException.class)
 	public void testSave_VehicleNull() throws Exception
 	{
 		this._service.save(
@@ -83,7 +77,7 @@ public class ConsumptionServiceTest extends AbstractTestNGSpringContextTests
 		);
 	}
 
-	@Test(expectedExceptions = RequiredException.class)
+	@Test(expectedExceptions = NullPointerException.class)
 	public void testSave_HistoryNull() throws Exception
 	{
 		this._service.save(
