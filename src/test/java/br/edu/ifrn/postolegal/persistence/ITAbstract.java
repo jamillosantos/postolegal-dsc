@@ -1,13 +1,16 @@
 package br.edu.ifrn.postolegal.persistence;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
+import java.io.Serializable;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class ITAbstract<T> extends AbstractTestNGSpringContextTests
+public abstract class ITAbstract<T, ID extends Serializable> extends AbstractTestNGSpringContextTests
 {
-	protected abstract Repository<T> getRepository();
+	protected abstract CrudRepository<T, ID> getRepository();
 
 	protected abstract T createObject();
 
@@ -20,22 +23,22 @@ public abstract class ITAbstract<T> extends AbstractTestNGSpringContextTests
 	@Test
 	public void testSaveOne()
 	{
+		long count = this.getRepository().count();
 		T object = this.createObject();
 		this.getRepository().save(object);
-		assertThat(this.getRepository().iterator().next()).isEqualTo(object);
+		assertThat(this.getRepository().count()).isEqualTo(count + 1);
 	}
 
 	@Test
 	public void testDeleteOne()
 	{
-		// Clean all possible
-		while (this.getRepository().iterator().hasNext())
-			this.getRepository().delete(this.getRepository().iterator().next());
-		//
+		this.getRepository().deleteAll();
+		long count = this.getRepository().count();
 		T object = this.createObject();
 		this.getRepository().save(object);
+		assertThat(this.getRepository().count()).isEqualTo(count + 1);
 		this.getRepository().delete(object);
-		assertThat(this.getRepository().iterator().hasNext()).isFalse();
+		assertThat(this.getRepository().count()).isEqualTo(count);
 	}
 
 }

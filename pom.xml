@@ -25,6 +25,8 @@
         <lombok-maven-plugin.version>1.16.8.0</lombok-maven-plugin.version>
         <juplo-maven-plugin.version>2.0.0</juplo-maven-plugin.version>
         <javax.inject.version>1</javax.inject.version>
+        <spring-data-releasetrain.version>Hopper-SR1</spring-data-releasetrain.version>
+
 
         <!-- plugins de relatorios -->
         <findbugs-maven-plugin.version>3.0.3</findbugs-maven-plugin.version>

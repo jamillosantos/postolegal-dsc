@@ -1,14 +1,14 @@
 package br.edu.ifrn.postolegal.service;
 
-import br.edu.ifrn.postolegal.persistence.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.Iterator;
+import java.io.Serializable;
 
-public abstract class Service<T>
+public abstract class Service<T, ID extends Serializable>
 {
-	private Repository<T> repository;
+	private CrudRepository<T, ID> repository;
 
-	public Service(Repository<T> repository)
+	public Service(CrudRepository<T, ID> repository)
 	{
 		this.repository = repository;
 	}
@@ -27,8 +27,18 @@ public abstract class Service<T>
 		this.repository.delete(object);
 	}
 
-	public Iterator<T> iterator()
+	public Iterable<T> findAll()
 	{
-		return this.repository.iterator();
+		return this.repository.findAll();
+	}
+
+	public void deleteAll()
+	{
+		this.repository.deleteAll();
+	}
+
+	public long count()
+	{
+		return this.repository.count();
 	}
 }
