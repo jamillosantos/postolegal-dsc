@@ -11,3 +11,10 @@ security:
 management:
   security:
     role: SUPERUSER
+spring:
+  jpa:
+    show-sql: true
+    database: HSQL
+    url: jdbc:hsqldb:mem:testdb
+    hibernate:
+      ddl-auto: create
