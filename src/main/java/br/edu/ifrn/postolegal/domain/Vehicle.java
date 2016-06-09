@@ -17,6 +17,8 @@ import javax.persistence.*;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_vehicle", name = "ID_SEQUENCE", allocationSize = 1)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Vehicle implements Serializable, Comparable<Vehicle>
 {
 	private static final long serialVersionUID = 1L;

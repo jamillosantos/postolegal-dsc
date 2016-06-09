@@ -17,6 +17,8 @@ import java.util.Set;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_station", name = "ID_SEQUENCE", allocationSize = 1)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Station implements Serializable, Comparable<Station>
 {
 	private static final long serialVersionUID = 1L;

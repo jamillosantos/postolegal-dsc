@@ -16,6 +16,8 @@ import java.util.Set;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_product", name = "ID_SEQUENCE", allocationSize = 1)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Product implements Serializable, Comparable<Product>
 {
 	private static final long serialVersionUID = 1L;

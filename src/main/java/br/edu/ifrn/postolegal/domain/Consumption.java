@@ -13,6 +13,8 @@ import java.util.Date;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_consumption", name = "ID_SEQUENCE", allocationSize = 1)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Consumption implements Serializable, Comparable<Consumption>
 {
 	private static final long serialVersionUID = 1L;

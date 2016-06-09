@@ -16,6 +16,8 @@ import java.util.Date;
 @Builder
 @Entity
 @SequenceGenerator(sequenceName = "seq_station_product_history", name = "ID_SEQUENCE", allocationSize = 1)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class StationProductHistory implements Serializable, Comparable<StationProductHistory>
 {
 	private static final long serialVersionUID = 1L;
