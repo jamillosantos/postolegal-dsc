@@ -10,12 +10,12 @@ import javax.persistence.EntityManager;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ConsumptionRepositoryCustomImpl implements ConsumptionRepositoryCustom
+public class ConsumptionRepositoryImpl implements ConsumptionRepositoryCustom
 {
 	private final EntityManager entityManager;
 
 	@Inject
-	public ConsumptionRepositoryCustomImpl(EntityManager entityManager)
+	public ConsumptionRepositoryImpl(EntityManager entityManager)
 	{
 		this.entityManager = entityManager;
 	}
