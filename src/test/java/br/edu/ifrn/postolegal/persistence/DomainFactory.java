@@ -28,6 +28,9 @@ public class DomainFactory
 	@Inject
 	private ConsumptionRepository consumptionRepository;
 
+	@Inject
+	private StationProductRepository stationProduct;
+
 	public User user()
 	{
 		User u = User.builder()
@@ -53,6 +56,19 @@ public class DomainFactory
 		return v;
 	}
 
+	public Vehicle vehicle(String plate)
+	{
+		Vehicle v = Vehicle.builder()
+			.user(this.user())
+			.licensePlate(plate)
+			.model("Uno")
+			.engine("1.0")
+			.year(2012)
+			.build();
+		this.vehicleRepository.save(v);
+		return v;
+	}
+
 	public StationProductHistory stationProductHistory()
 	{
 		StationProductHistory h = StationProductHistory.builder().product(this.product())
@@ -61,16 +77,42 @@ public class DomainFactory
 		return h;
 	}
 
-	public Station station()
+	public StationProductHistory stationProductHistory(Product product)
 	{
-		Station s = Station.builder().name("Posto 01").build();
+		StationProductHistory h = StationProductHistory.builder().product(product)
+			.station(this.station()).price(2.7f).date(new Date()).build();
+		this.stationProductHistoryRepository.save(h);
+		return h;
+	}
+
+	public StationProductHistory stationProductHistory(Station station)
+	{
+		StationProductHistory h = StationProductHistory.builder().product(this.product())
+			.station(station).price(2.7f).date(new Date()).build();
+		this.stationProductHistoryRepository.save(h);
+		return h;
+	}
+
+	public Station station(String name)
+	{
+		Station s = Station.builder().name(name).build();
 		this.stationRepository.save(s);
 		return s;
 	}
 
+	public Station station()
+	{
+		return this.station("Posto 01");
+	}
+
 	public Product product()
 	{
-		Product p = Product.builder().title("Gasolina").build();
+		return this.product("Gasolina");
+	}
+
+	public Product product(String title)
+	{
+		Product p = Product.builder().title(title).build();
 		this.productRepository.save(p);
 		return p;
 	}
@@ -86,5 +128,14 @@ public class DomainFactory
 			.build();
 		this.consumptionRepository.save(consumption);
 		return consumption;
+	}
+
+	public void stationProduct(Station station, Product product)
+	{
+		this.stationProduct.save(StationProduct.builder()
+			.station(station)
+			.product(product)
+			.price(1.2f)
+			.build());
 	}
 }
