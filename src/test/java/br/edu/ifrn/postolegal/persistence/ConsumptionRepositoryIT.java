@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import java.time.Instant;
 import java.util.Date;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
@@ -41,8 +43,6 @@ public class ConsumptionRepositoryIT extends IntegrationTest<Consumption, Long>
 			.build();
 	}
 
-/*
-
 	@Test
 	public void testTotalPaid()
 	{
@@ -64,5 +64,4 @@ public class ConsumptionRepositoryIT extends IntegrationTest<Consumption, Long>
 			.build());
 		assertThat(this._repository.sumTotalPaid(v)).isEqualTo(2.5f);
 	}
-*/
 }
