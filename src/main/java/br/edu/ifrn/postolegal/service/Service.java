@@ -8,6 +8,11 @@ public abstract class Service<T, ID extends Serializable>
 {
 	private CrudRepository<T, ID> repository;
 
+	protected CrudRepository<T, ID> getRepository()
+	{
+		return this.repository;
+	}
+
 	public Service(CrudRepository<T, ID> repository)
 	{
 		this.repository = repository;
