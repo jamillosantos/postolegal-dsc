@@ -15,7 +15,7 @@ import javax.inject.Named;
  * @author renato
  */
 @Named
-public class UserService extends Service<User>
+public class UserService extends Service<User, Long>
 {
 	@Inject
 	public UserService(UserRepository repository)

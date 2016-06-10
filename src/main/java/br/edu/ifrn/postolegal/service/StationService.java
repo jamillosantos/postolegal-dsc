@@ -6,11 +6,8 @@ import br.edu.ifrn.postolegal.persistence.StationRepository;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-/**
- * @author renato
- */
 @Named
-public class StationService extends Service<Station>
+public class StationService extends Service<Station, Long>
 {
 	@Inject
 	public StationService(StationRepository repository)

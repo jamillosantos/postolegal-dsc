@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-public class ProductService extends Service<Product>
+public class ProductService extends Service<Product, Long>
 {
 	@Inject
 	public ProductService(ProductRepository repository)
