@@ -7,12 +7,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * @author J. Santos &lt;jamillo@gmail.com&gt;
- */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"products"})
 @EqualsAndHashCode(of = {"id"})
 @Builder
 @Entity

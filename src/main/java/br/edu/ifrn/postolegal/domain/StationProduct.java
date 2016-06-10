@@ -2,11 +2,7 @@ package br.edu.ifrn.postolegal.domain;
 
 import java.io.Serializable;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.Builder;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -20,6 +16,8 @@ import javax.persistence.*;
 @Builder
 @Entity
 @IdClass(StationProductId.class)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class StationProduct implements Serializable, Comparable<StationProduct>
 {
 	private static final long serialVersionUID = 1L;

@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-@ToString
+@ToString()
 @EqualsAndHashCode(of = {"vehicle", "date"})
 @Builder
 @Entity
@@ -23,27 +23,25 @@ public class Consumption implements Serializable, Comparable<Consumption>
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
 	private Long id;
 
-	@NonNull
 	@ManyToOne
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_consumption__vehicle"))
 	private Vehicle vehicle;
 
-	@NonNull
 	@ManyToOne
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_consumption__history"))
 	private StationProductHistory history;
 
 	@Column(nullable = false)
-	private float totalPaid;
+	private Float totalPaid;
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
 	@Column(nullable = false)
-	private float odometer;
+	private Float odometer;
 
-	private boolean valid;
+	private Boolean valid;
 
 	@Override
 	public int compareTo(Consumption consumption)

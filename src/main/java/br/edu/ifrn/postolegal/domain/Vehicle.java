@@ -12,7 +12,7 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"consumptions"})
 @EqualsAndHashCode(of = {"licensePlate"})
 @Builder
 @Entity
@@ -31,7 +31,6 @@ public class Vehicle implements Serializable, Comparable<Vehicle>
 	@OneToMany(mappedBy = "vehicle")
 	public Set<Consumption> consumptions;
 
-	@NonNull
 	@ManyToOne
 	@JoinColumn(nullable = false, foreignKey = @ForeignKey(name = "fk_vehicle__user"))
 	private User user;

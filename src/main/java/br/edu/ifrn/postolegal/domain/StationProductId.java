@@ -1,9 +1,6 @@
 package br.edu.ifrn.postolegal.domain;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -14,6 +11,8 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @Builder
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class StationProductId implements Serializable
 {
 	private static final long serialVersionUID = 1L;

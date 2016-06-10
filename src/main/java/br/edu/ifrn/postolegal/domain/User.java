@@ -7,12 +7,9 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
-/**
- * @author jbull
- */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"vehicles"})
 @EqualsAndHashCode(of = {"email"})
 @Builder
 @Entity

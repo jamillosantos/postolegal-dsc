@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"stations"})
 @EqualsAndHashCode(of = {"title"})
 @Builder
 @Entity
