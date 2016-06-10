@@ -6,16 +6,13 @@ import lombok.*;
 
 import javax.persistence.*;
 
-/**
- * @author J. Santos &lt;jamillo@gmail.com&gt;
- */
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"product", "station"})
 @Builder
 @Entity
-@IdClass(StationProductId.class)
+@SequenceGenerator(sequenceName = "seq_station_product", name = "ID_SEQUENCE", allocationSize = 1)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class StationProduct implements Serializable, Comparable<StationProduct>
@@ -23,20 +20,14 @@ public class StationProduct implements Serializable, Comparable<StationProduct>
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "product_id", insertable = false, updatable = false)
-	private Long productId;
-
-	@Id
-	@Column(name = "station_id", insertable = false, updatable = false)
-	private Long stationId;
+	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
+	private Long id;
 
 	@ManyToOne(optional = false)
-	@PrimaryKeyJoinColumn(name = "product_id", referencedColumnName = "id")
 	@JoinColumn(name = "product_id", nullable = false, foreignKey = @ForeignKey(name = "fk_station_product__product"))
 	private Product product;
 
 	@ManyToOne(optional = false)
-	@PrimaryKeyJoinColumn(name = "station_id", referencedColumnName = "id")
 	@JoinColumn(name = "station_id", nullable = false, foreignKey = @ForeignKey(name = "fk_station_product__station"))
 	private Station station;
 

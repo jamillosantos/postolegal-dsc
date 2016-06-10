@@ -4,6 +4,7 @@ import br.edu.ifrn.postolegal.PostoLegalApplication;
 import br.edu.ifrn.postolegal.domain.Product;
 import br.edu.ifrn.postolegal.domain.Station;
 import br.edu.ifrn.postolegal.domain.StationProductHistory;
+import br.edu.ifrn.postolegal.persistence.DomainFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -38,17 +39,21 @@ public class StationProductHistoryServiceIT extends AbstractTestNGSpringContextT
 	private static final float PRICE_INVALID_2 = -2.7f;
 	private static final Date DATE_VALID = new Date();
 
+	@Inject
+	private DomainFactory factory;
+
 	@Test
 	public void testSave_Success() throws Exception
 	{
-		this._service.save(
-			StationProductHistory.builder()
-				.product(PRODUCT_VALID)
-				.station(STATION_VALID)
-				.price(PRICE_VALID)
-				.date(DATE_VALID)
-				.build()
-		);
+		long count = this._service.count();
+		StationProductHistory h = StationProductHistory.builder()
+			.product(this.factory.product())
+			.station(this.factory.station())
+			.price(PRICE_VALID)
+			.date(DATE_VALID)
+			.build();
+		this._service.save(h);
+		assertThat(this._service.count()).isEqualTo(count + 1);
 	}
 
 	@Test(expectedExceptions = NullPointerException.class)
@@ -56,7 +61,7 @@ public class StationProductHistoryServiceIT extends AbstractTestNGSpringContextT
 	{
 		this._service.save(
 			StationProductHistory.builder()
-				.station(STATION_VALID)
+				.station(this.factory.station())
 				.price(PRICE_VALID)
 				.date(DATE_VALID)
 				.build()
@@ -68,7 +73,7 @@ public class StationProductHistoryServiceIT extends AbstractTestNGSpringContextT
 	{
 		this._service.save(
 			StationProductHistory.builder()
-				.product(PRODUCT_VALID)
+				.product(this.factory.product())
 				.price(PRICE_VALID)
 				.date(DATE_VALID)
 				.build()
@@ -80,8 +85,8 @@ public class StationProductHistoryServiceIT extends AbstractTestNGSpringContextT
 	{
 		this._service.save(
 			StationProductHistory.builder()
-				.product(PRODUCT_VALID)
-				.station(STATION_VALID)
+				.product(this.factory.product())
+				.station(this.factory.station())
 				.price(PRICE_INVALID_1)
 				.date(DATE_VALID)
 				.build()
@@ -93,8 +98,8 @@ public class StationProductHistoryServiceIT extends AbstractTestNGSpringContextT
 	{
 		this._service.save(
 			StationProductHistory.builder()
-				.product(PRODUCT_VALID)
-				.station(STATION_VALID)
+				.product(this.factory.product())
+				.station(this.factory.station())
 				.price(PRICE_INVALID_2)
 				.date(DATE_VALID)
 				.build()
@@ -106,8 +111,8 @@ public class StationProductHistoryServiceIT extends AbstractTestNGSpringContextT
 	{
 		this._service.save(
 			StationProductHistory.builder()
-				.product(PRODUCT_VALID)
-				.station(STATION_VALID)
+				.product(this.factory.product())
+				.station(this.factory.station())
 				.price(PRICE_VALID)
 				.build()
 		);
@@ -116,15 +121,16 @@ public class StationProductHistoryServiceIT extends AbstractTestNGSpringContextT
 	@Test
 	public void deleteOne() throws Exception
 	{
+		long count = this._service.count();
 		StationProductHistory object = StationProductHistory.builder()
-			.product(PRODUCT_VALID)
-			.station(STATION_VALID)
+			.product(this.factory.product())
+			.station(this.factory.station())
 			.price(PRICE_VALID)
 			.date(DATE_VALID)
 			.build();
 		this._service.save(object);
 		this._service.delete(object);
-		assertThat(this._service.iterator().hasNext()).isFalse();
+		assertThat(this._service.count()).isEqualTo(count);
 	}
 
 }
