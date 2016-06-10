@@ -26,12 +26,14 @@ public class StationServiceIT extends AbstractTestNGSpringContextTests
 	@Test
 	public void testSave_Success() throws Exception
 	{
-		this._service.save(Station.builder()
-			.id(1l)
+		long count = this._service.count();
+		Station s = Station.builder()
 			.name(NAME_VALID)
 			.latitude(LATITUDE_VALID)
 			.longitude(LONGITUDE_VALID)
-			.build());
+			.build();
+		this._service.save(s);
+		assertThat(this._service.count()).isEqualTo(count + 1);
 	}
 
 	@Test(expectedExceptions = RequiredException.class)
@@ -74,14 +76,14 @@ public class StationServiceIT extends AbstractTestNGSpringContextTests
 	@Test
 	public void deleteOne() throws Exception
 	{
+		long count = this._service.count();
 		Station object = Station.builder()
-			.id(1L)
 			.name(NAME_VALID)
 			.latitude(LATITUDE_VALID)
 			.longitude(LONGITUDE_VALID)
 			.build();
 		this._service.save(object);
 		this._service.delete(object);
-		assertThat(this._service.iterator().hasNext()).isFalse();
+		assertThat(this._service.count()).isEqualTo(count);
 	}
 }

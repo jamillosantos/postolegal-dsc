@@ -24,9 +24,12 @@ public class ProductServiceIT extends AbstractTestNGSpringContextTests
 	@Test
 	public void testSave_Success() throws Exception
 	{
-		this._service.save(Product.builder()
+		long count = this._service.count();
+		Product p = Product.builder()
 			.title(TITLE_VALID)
-			.build());
+			.build();
+		this._service.save(p);
+		assertThat(this._service.count()).isEqualTo(count + 1);
 	}
 
 	@Test(expectedExceptions = RequiredException.class)
@@ -46,12 +49,13 @@ public class ProductServiceIT extends AbstractTestNGSpringContextTests
 	@Test
 	public void deleteOne() throws Exception
 	{
+		long count = this._service.count();
 		Product object = Product.builder()
 			.title(TITLE_VALID)
 			.build();
 		this._service.save(object);
 		this._service.delete(object);
-		assertThat(this._service.iterator().hasNext()).isFalse();
+		assertThat(this._service.count()).isEqualTo(count);
 	}
 
 }

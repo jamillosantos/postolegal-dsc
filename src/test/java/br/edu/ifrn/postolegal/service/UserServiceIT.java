@@ -26,17 +26,20 @@ public class UserServiceIT extends AbstractTestNGSpringContextTests
 	private final String EMAIL_VALID = "email@email01.com";
 	private final String NAME_VALID = "Nome 01";
 	private final String PASSWORD_VALID = "123456";
+	private final String SALT_VALID = "123456";
 
 	@Test
 	public void testSave_Success() throws Exception
 	{
+		long count = this._service.count();
 		User object = User.builder()
 			.email(EMAIL_VALID)
 			.name(NAME_VALID)
 			.password(PASSWORD_VALID)
+			.salt(SALT_VALID)
 			.build();
 		this._service.save(object);
-		assertThat(this._service.iterator().next()).isEqualTo(object);
+		assertThat(this._service.count()).isEqualTo(count + 1);
 	}
 
 	// Email
@@ -101,13 +104,16 @@ public class UserServiceIT extends AbstractTestNGSpringContextTests
 	@Test
 	public void deleteOne() throws Exception
 	{
+		long count = this._service.count();
 		User object = User.builder()
 			.email(EMAIL_VALID)
 			.name(NAME_VALID)
 			.password(PASSWORD_VALID)
+			.salt(SALT_VALID)
 			.build();
 		this._service.save(object);
+		assertThat(this._service.count()).isEqualTo(count + 1);
 		this._service.delete(object);
-		assertThat(this._service.iterator().hasNext()).isFalse();
+		assertThat(this._service.count()).isEqualTo(count);
 	}
 }
