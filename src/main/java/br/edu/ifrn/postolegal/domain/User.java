@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString(exclude = {"vehicles"})
 @EqualsAndHashCode(of = {"email"})
 @Builder
-@Entity
+@Entity(name = "Users")
 @SequenceGenerator(sequenceName = "seq_user", name = "ID_SEQUENCE", allocationSize = 1)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
