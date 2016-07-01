@@ -2,7 +2,7 @@ package br.edu.ifrn.postolegal.service;
 
 import br.edu.ifrn.postolegal.PostoLegalApplication;
 import br.edu.ifrn.postolegal.domain.Vehicle;
-import br.edu.ifrn.postolegal.persistence.DomainFactory;
+import br.edu.ifrn.postolegal.persistence.UserFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@Test
+@Test(groups = "vehicle")
 public class VehicleServiceIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
@@ -26,13 +26,13 @@ public class VehicleServiceIT extends AbstractTestNGSpringContextTests
 	private final int YEAR_VALID = 2012;
 
 	@Inject
-	private DomainFactory factory;
+	private UserFactory userFactory;
 
 	@Test
 	public void testSave_Success() throws Exception
 	{
 		Vehicle object = Vehicle.builder()
-			.user(this.factory.user())
+			.user(this.userFactory.user())
 			.licensePlate(LICENSE_PLATE_VALID)
 			.model(MODEL_VALID)
 			.engine(ENGINE_VALID)
@@ -47,7 +47,7 @@ public class VehicleServiceIT extends AbstractTestNGSpringContextTests
 	{
 		long count = this._service.count();
 		Vehicle object = Vehicle.builder()
-			.user(this.factory.user())
+			.user(this.userFactory.user())
 			.licensePlate(LICENSE_PLATE_VALID)
 			.model(MODEL_VALID)
 			.engine(ENGINE_VALID)

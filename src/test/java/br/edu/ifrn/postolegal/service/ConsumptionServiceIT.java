@@ -2,7 +2,7 @@ package br.edu.ifrn.postolegal.service;
 
 import br.edu.ifrn.postolegal.PostoLegalApplication;
 import br.edu.ifrn.postolegal.domain.*;
-import br.edu.ifrn.postolegal.persistence.DomainFactory;
+import br.edu.ifrn.postolegal.persistence.*;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@Test
+@Test(groups = "consupmtion", dependsOnGroups = {"vehicle", "stationProductHistory"})
 public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
@@ -31,15 +31,21 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	private static final Date DATE_VALID = new Date();
 
 	@Inject
-	private DomainFactory factory;
+	private VehicleFactory vehicleFactory;
+
+	@Inject
+	private StationProductHistoryFactory stationProductHistoryFactory;
+
+	@Inject
+	private ConsumptionFactory consumptionFactory;
 
 	@Test
 	public void testSave_Success_1() throws Exception
 	{
 		this._service.save(
 			Consumption.builder()
-				.vehicle(this.factory.vehicle())
-				.history(this.factory.stationProductHistory())
+				.vehicle(this.vehicleFactory.vehicle())
+				.history(this.stationProductHistoryFactory.stationProductHistory())
 				.totalPaid(TOTAL_PAID_VALID)
 				.date(DATE_VALID)
 				.odometer(ODOMETER_VALID_1)
@@ -52,8 +58,8 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			Consumption.builder()
-				.vehicle(this.factory.vehicle())
-				.history(this.factory.stationProductHistory())
+				.vehicle(this.vehicleFactory.vehicle())
+				.history(this.stationProductHistoryFactory.stationProductHistory())
 				.totalPaid(TOTAL_PAID_VALID)
 				.date(DATE_VALID)
 				.odometer(ODOMETER_VALID_2)
@@ -66,7 +72,7 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			Consumption.builder()
-				.history(this.factory.stationProductHistory())
+				.history(this.stationProductHistoryFactory.stationProductHistory())
 				.totalPaid(TOTAL_PAID_VALID)
 				.date(DATE_VALID)
 				.odometer(ODOMETER_VALID_1)
@@ -79,7 +85,7 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			Consumption.builder()
-				.vehicle(this.factory.vehicle())
+				.vehicle(this.vehicleFactory.vehicle())
 				.totalPaid(TOTAL_PAID_VALID)
 				.date(DATE_VALID)
 				.odometer(ODOMETER_VALID_1)
@@ -92,8 +98,8 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			Consumption.builder()
-				.vehicle(this.factory.vehicle())
-				.history(this.factory.stationProductHistory())
+				.vehicle(this.vehicleFactory.vehicle())
+				.history(this.stationProductHistoryFactory.stationProductHistory())
 				.totalPaid(TOTAL_PAID_INVALID_1)
 				.date(DATE_VALID)
 				.odometer(ODOMETER_VALID_1)
@@ -106,8 +112,8 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			Consumption.builder()
-				.vehicle(this.factory.vehicle())
-				.history(this.factory.stationProductHistory())
+				.vehicle(this.vehicleFactory.vehicle())
+				.history(this.stationProductHistoryFactory.stationProductHistory())
 				.totalPaid(TOTAL_PAID_INVALID_2)
 				.date(DATE_VALID)
 				.odometer(ODOMETER_VALID_1)
@@ -120,8 +126,8 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			Consumption.builder()
-				.vehicle(this.factory.vehicle())
-				.history(this.factory.stationProductHistory())
+				.vehicle(this.vehicleFactory.vehicle())
+				.history(this.stationProductHistoryFactory.stationProductHistory())
 				.totalPaid(TOTAL_PAID_VALID)
 				.odometer(ODOMETER_VALID_1)
 				.build()
@@ -133,8 +139,8 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			Consumption.builder()
-				.vehicle(this.factory.vehicle())
-				.history(this.factory.stationProductHistory())
+				.vehicle(this.vehicleFactory.vehicle())
+				.history(this.stationProductHistoryFactory.stationProductHistory())
 				.totalPaid(TOTAL_PAID_VALID)
 				.date(DATE_VALID)
 				.odometer(ODOMETER_INVALID_1)
@@ -144,8 +150,8 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 
 	public void testFindAllByVehicle_Success()
 	{
-		Vehicle vehicle = this.factory.vehicle();
-		Consumption consumption = this.factory.consumption(vehicle);
+		Vehicle vehicle = this.vehicleFactory.vehicle();
+		Consumption consumption = this.consumptionFactory.consumption(vehicle);
 		Iterable<Consumption> it = this._service.findAllByVehiclePlate(vehicle.getLicensePlate());
 		assertThat(it.iterator().next().getId()).isEqualTo(consumption.getId());
 	}
@@ -154,8 +160,8 @@ public class ConsumptionServiceIT extends AbstractTestNGSpringContextTests
 	public void deleteOne() throws Exception
 	{
 		Consumption object = Consumption.builder()
-			.vehicle(this.factory.vehicle())
-			.history(this.factory.stationProductHistory())
+			.vehicle(this.vehicleFactory.vehicle())
+			.history(this.stationProductHistoryFactory.stationProductHistory())
 			.totalPaid(TOTAL_PAID_VALID)
 			.date(DATE_VALID)
 			.odometer(ODOMETER_VALID_1)

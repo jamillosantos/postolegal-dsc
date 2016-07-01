@@ -7,9 +7,11 @@ import br.edu.ifrn.postolegal.domain.StationProduct;
 import br.edu.ifrn.postolegal.domain.StationProductId;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Set;
+
 public interface StationProductRepository extends CrudRepository<StationProduct, StationProductId>
 {
-	Iterable<StationProduct> findAllByProduct(Product product);
+	Set<StationProduct> findAllByProduct(Product product);
 
-	Iterable<StationProduct> findAllByStation(Station station);
+	Set<StationProduct> findAllByStation(Station station);
 }

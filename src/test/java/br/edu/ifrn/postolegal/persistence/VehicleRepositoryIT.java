@@ -1,48 +1,65 @@
 package br.edu.ifrn.postolegal.persistence;
 
 import br.edu.ifrn.postolegal.PostoLegalApplication;
-import br.edu.ifrn.postolegal.domain.Consumption;
 import br.edu.ifrn.postolegal.domain.Vehicle;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
-import java.time.Instant;
-import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@Test
-public class VehicleRepositoryIT extends IntegrationTest<Vehicle, Long>
+@Test(groups = "vehicle", dependsOnGroups = "user")
+public class VehicleRepositoryIT extends AbstractTestNGSpringContextTests
 {
-	@Inject
-	DomainFactory factory;
-
 	@Inject
 	private VehicleRepository _repository;
 
 	@Inject
-	private ConsumptionRepository consumptionRepository;
+	private UserFactory userFactory;
 
-	@Override
-	protected CrudRepository<Vehicle, Long> getRepository()
-	{
-		return this._repository;
-	}
-
-	@Override
 	protected Vehicle createObject()
 	{
 		return Vehicle.builder()
-			.user(this.factory.user())
+			.user(this.userFactory.user())
 			.licensePlate("ABC1234")
 			.model("Uno")
 			.engine("1.0")
 			.year(2012)
 			.build();
+	}
+
+	@BeforeMethod
+	void deleteAll()
+	{
+		this._repository.deleteAll();
+	}
+
+	public void injection()
+	{
+		assertThat(this._repository).isNotNull();
+	}
+
+	public void saveOne()
+	{
+		long count = this._repository.count();
+		Vehicle object = this.createObject();
+		this._repository.save(object);
+		assertThat(this._repository.count()).isEqualTo(count + 1);
+	}
+
+	public void deleteOne()
+	{
+		long count = this._repository.count();
+		Vehicle object = this.createObject();
+		this._repository.save(object);
+		assertThat(this._repository.count()).isEqualTo(count + 1);
+		this._repository.delete(object);
+		assertThat(this._repository.count()).isEqualTo(count);
 	}
 }

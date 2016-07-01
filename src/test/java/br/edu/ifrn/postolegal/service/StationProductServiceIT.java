@@ -1,10 +1,9 @@
 package br.edu.ifrn.postolegal.service;
 
 import br.edu.ifrn.postolegal.PostoLegalApplication;
-import br.edu.ifrn.postolegal.domain.Product;
-import br.edu.ifrn.postolegal.domain.Station;
 import br.edu.ifrn.postolegal.domain.StationProduct;
-import br.edu.ifrn.postolegal.persistence.DomainFactory;
+import br.edu.ifrn.postolegal.persistence.ProductFactory;
+import br.edu.ifrn.postolegal.persistence.StationFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -16,14 +15,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@Test
+@Test(groups = "stationProduct", dependsOnGroups = {"station", "product"})
 public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
 	private StationProductService _service;
 
 	@Inject
-	private DomainFactory factory;
+	private ProductFactory productFactory;
+
+	@Inject
+	private StationFactory stationFactory;
 
 	private static final float PRICE_VALID = 2.9f;
 	private static final float PRICE_INVALID_1 = 0;
@@ -34,8 +36,8 @@ public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 	{
 		long count = this._service.count();
 		StationProduct s = StationProduct.builder()
-			.product(this.factory.product())
-			.station(this.factory.station())
+			.product(this.productFactory.product())
+			.station(this.stationFactory.station())
 			.price(PRICE_VALID)
 			.build();
 		this._service.save(s);
@@ -47,7 +49,7 @@ public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			StationProduct.builder()
-				.station(this.factory.station())
+				.station(this.stationFactory.station())
 				.price(PRICE_VALID)
 				.build()
 		);
@@ -58,7 +60,7 @@ public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			StationProduct.builder()
-				.product(this.factory.product())
+				.product(this.productFactory.product())
 				.price(PRICE_VALID)
 				.build()
 		);
@@ -69,8 +71,8 @@ public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			StationProduct.builder()
-				.product(this.factory.product())
-				.station(this.factory.station())
+				.product(this.productFactory.product())
+				.station(this.stationFactory.station())
 				.price(PRICE_INVALID_1)
 				.build()
 		);
@@ -81,8 +83,8 @@ public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 	{
 		this._service.save(
 			StationProduct.builder()
-				.product(this.factory.product())
-				.station(this.factory.station())
+				.product(this.productFactory.product())
+				.station(this.stationFactory.station())
 				.price(PRICE_INVALID_2)
 				.build()
 		);
@@ -93,8 +95,8 @@ public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 	{
 		long count = this._service.count();
 		StationProduct object = StationProduct.builder()
-			.product(this.factory.product())
-			.station(this.factory.station())
+			.product(this.productFactory.product())
+			.station(this.stationFactory.station())
 			.price(PRICE_VALID)
 			.build();
 		this._service.save(object);

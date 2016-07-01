@@ -4,7 +4,9 @@ import br.edu.ifrn.postolegal.PostoLegalApplication;
 import br.edu.ifrn.postolegal.domain.*;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
@@ -16,40 +18,56 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@Test
-public class ConsumptionRepositoryIT extends IntegrationTest<Consumption, Long>
+@Test(groups = "consumption", dependsOnGroups = {"vehicle", "stationProductHistory"})
+public class ConsumptionRepositoryIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
-	DomainFactory factory;
+	private VehicleFactory vehicleFactory;
 
 	@Inject
 	private ConsumptionRepository _repository;
 
-	@Override
-	protected CrudRepository<Consumption, Long> getRepository()
+	@Inject
+	private StationProductHistoryFactory stationProductHistoryFactory;
+
+	@BeforeMethod
+	void deleteAll()
 	{
-		return this._repository;
+		this._repository.deleteAll();
 	}
 
-	@Override
 	protected Consumption createObject()
 	{
 		return Consumption.builder()
-			.vehicle(factory.vehicle())
-			.history(factory.stationProductHistory())
+			.vehicle(this.vehicleFactory.vehicle())
+			.history(this.stationProductHistoryFactory.stationProductHistory())
 			.totalPaid(23f)
 			.date(new Date())
 			.odometer(23f)
 			.build();
 	}
 
-	@Test
-	public void testTotalPaid()
+	public void injection()
 	{
-		Vehicle v = factory.vehicle("ZZZ1234");
+		assertThat(this._repository).isNotNull();
+	}
+
+	public void deleteOne()
+	{
+		long count = this._repository.count();
+		Consumption object = this.createObject();
+		this._repository.save(object);
+		assertThat(this._repository.count()).isEqualTo(count + 1);
+		this._repository.delete(object);
+		assertThat(this._repository.count()).isEqualTo(count);
+	}
+
+	public void totalPaid()
+	{
+		Vehicle v = this.vehicleFactory.vehicle("ZZZ1234");
 		this._repository.save(Consumption.builder()
 			.vehicle(v)
-			.history(factory.stationProductHistory())
+			.history(this.stationProductHistoryFactory.stationProductHistory())
 			.totalPaid(1f)
 			.date(Date.from(Instant.now()))
 			.odometer(2f)
@@ -57,11 +75,12 @@ public class ConsumptionRepositoryIT extends IntegrationTest<Consumption, Long>
 		assertThat(this._repository.sumTotalPaid(v)).isEqualTo(1f);
 		this._repository.save(Consumption.builder()
 			.vehicle(v)
-			.history(factory.stationProductHistory())
+			.history(this.stationProductHistoryFactory.stationProductHistory())
 			.totalPaid(1.5f)
 			.date(Date.from(Instant.now()))
 			.odometer(4f)
 			.build());
 		assertThat(this._repository.sumTotalPaid(v)).isEqualTo(2.5f);
+		this._repository.deleteAll();
 	}
 }

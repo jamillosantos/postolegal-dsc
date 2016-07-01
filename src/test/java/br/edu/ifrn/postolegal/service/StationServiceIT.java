@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@Test
+@Test(groups = "station")
 public class StationServiceIT extends AbstractTestNGSpringContextTests
 {
 	@Inject

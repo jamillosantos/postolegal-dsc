@@ -7,7 +7,9 @@ import br.edu.ifrn.postolegal.domain.StationProduct;
 import br.edu.ifrn.postolegal.domain.StationProductId;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
@@ -18,43 +20,71 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@Test
-public class StationProductRepositoryIT extends IntegrationTest<StationProduct, StationProductId>
+@Test(groups = "stationProduct", dependsOnGroups = {"product", "station"})
+public class StationProductRepositoryIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
 	private StationProductRepository _repository;
 
 	@Inject
-	private DomainFactory factory;
+	private ProductFactory productFactory;
 
-	@Override
-	protected CrudRepository<StationProduct, StationProductId> getRepository()
-	{
-		return this._repository;
-	}
+	@Inject
+	private StationFactory stationFactory;
 
-	@Override
+	@Inject
+	private StationProductFactory stationProductFactory;
+
 	protected StationProduct createObject()
 	{
 		return StationProduct.builder()
-			.product(this.factory.product())
-			.station(this.factory.station())
+			.product(this.productFactory.product())
+			.station(this.stationFactory.station())
 			.price(2.7f)
 			.build();
 	}
 
-	public void testFindAllByProduct()
+	@BeforeMethod
+	void deleteAll()
+	{
+		this._repository.deleteAll();
+	}
+
+	public void injection()
+	{
+		assertThat(this._repository).isNotNull();
+	}
+
+	public void saveOne()
+	{
+		long count = this._repository.count();
+		StationProduct object = this.createObject();
+		this._repository.save(object);
+		assertThat(this._repository.count()).isEqualTo(count + 1);
+	}
+
+	public void deleteOne()
+	{
+		long count = this._repository.count();
+		StationProduct object = this.createObject();
+		this._repository.save(object);
+		assertThat(this._repository.count()).isEqualTo(count + 1);
+		this._repository.delete(object);
+		assertThat(this._repository.count()).isEqualTo(count);
+	}
+
+	public void findAllByProduct()
 	{
 		Product
-			productGasolina = this.factory.product("Gasolina"),
-			productGas = this.factory.product("Gás");
+			productGasolina = this.productFactory.product("Gasolina"),
+			productGas = this.productFactory.product("Gás");
 		Station
-			s1 = this.factory.station("Posto testFindAllByProduct 01"),
-			s2 = this.factory.station("Posto testFindAllByProduct 02");
-		this.factory.stationProduct(s1, productGas);
-		this.factory.stationProduct(s1, productGasolina);
-		this.factory.stationProduct(s2, productGas);
-		this.factory.stationProduct(s2, productGasolina);
+			s1 = this.stationFactory.station("Posto testFindAllByProduct 01"),
+			s2 = this.stationFactory.station("Posto testFindAllByProduct 02");
+		this.stationProductFactory.stationProduct(s1, productGas);
+		this.stationProductFactory.stationProduct(s1, productGasolina);
+		this.stationProductFactory.stationProduct(s2, productGas);
+		this.stationProductFactory.stationProduct(s2, productGasolina);
 		Iterator<StationProduct> it = this._repository.findAllByProduct(productGas).iterator();
 		int i = 0;
 		while (it.hasNext())
@@ -65,17 +95,17 @@ public class StationProductRepositoryIT extends IntegrationTest<StationProduct, 
 		assertThat(i).isEqualTo(2);
 	}
 
-	public void testFindAllByStation()
+	public void findAllByStation()
 	{
 		Product
-			productGasolina = this.factory.product("Gasolina"),
-			productGas = this.factory.product("Gás");
+			productGasolina = this.productFactory.product("Gasolina"),
+			productGas = this.productFactory.product("Gás");
 		Station
-			s1 = this.factory.station("Posto testFindAllByProduct 01"),
-			s2 = this.factory.station("Posto testFindAllByProduct 02");
-		this.factory.stationProduct(s1, productGas);
-		this.factory.stationProduct(s1, productGasolina);
-		this.factory.stationProduct(s2, productGasolina);
+			s1 = this.stationFactory.station("Posto testFindAllByProduct 01"),
+			s2 = this.stationFactory.station("Posto testFindAllByProduct 02");
+		this.stationProductFactory.stationProduct(s1, productGas);
+		this.stationProductFactory.stationProduct(s1, productGasolina);
+		this.stationProductFactory.stationProduct(s2, productGasolina);
 		Iterator<StationProduct> it = this._repository.findAllByStation(s2).iterator();
 		int i = 0;
 		while (it.hasNext())

@@ -6,7 +6,6 @@
 #    url: jdbc:hsqldb:mem:testdb
 #    hibernate:
 #      ddl-auto: create
-
 #spring:
 #  datasource:
 #    url: jdbc:postgresql://localhost:5432/postolegal
@@ -24,4 +23,3 @@
 #    hibernate:
 #      ddl-auto: create
 #      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
-

@@ -5,8 +5,9 @@ import br.edu.ifrn.postolegal.domain.Product;
 import br.edu.ifrn.postolegal.domain.Station;
 import br.edu.ifrn.postolegal.domain.StationProductHistory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
@@ -17,41 +18,61 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringApplicationConfiguration(classes = PostoLegalApplication.class)
 @WebAppConfiguration
-@Test
-public class StationProductHistoryRepositoryIT extends IntegrationTest<StationProductHistory, Long>
+@Test(groups = "stationProductHistory", dependsOnGroups = {"product", "station"})
+public class StationProductHistoryRepositoryIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
 	private StationProductHistoryRepository _repository;
 
 	@Inject
-	private DomainFactory factory;
+	private ProductFactory productFactory;
 
-	@Override
-	protected CrudRepository<StationProductHistory, Long> getRepository()
+	@Inject
+	private StationFactory stationFactory;
+
+	@Inject
+	private StationProductHistoryFactory stationProductHistoryFactory;
+
+	@BeforeMethod
+	void deleteAll()
 	{
-		return this._repository;
+		this._repository.deleteAll();
 	}
 
-	@Override
 	protected StationProductHistory createObject()
 	{
 		return StationProductHistory.builder()
-			.product(this.factory.product())
-			.station(this.factory.station())
+			.product(this.productFactory.product())
+			.station(this.stationFactory.station())
 			.price(2.7f)
 			.date(new Date())
 			.build();
 	}
 
-	@Test
-	public void testFindAllByProduct()
+
+	public void injection()
+	{
+		assertThat(this._repository).isNotNull();
+	}
+
+	public void deleteOne()
+	{
+		long count = this._repository.count();
+		StationProductHistory object = this.createObject();
+		this._repository.save(object);
+		assertThat(this._repository.count()).isEqualTo(count + 1);
+		this._repository.delete(object);
+		assertThat(this._repository.count()).isEqualTo(count);
+	}
+
+	public void findAllByProduct()
 	{
 		Product
-			p = this.factory.product(),
-			p2 = this.factory.product();
-		this.factory.stationProductHistory(p);
-		this.factory.stationProductHistory(p);
-		this.factory.stationProductHistory(p2);
+			p = this.productFactory.product(),
+			p2 = this.productFactory.product();
+		this.stationProductHistoryFactory.stationProductHistory(p);
+		this.stationProductHistoryFactory.stationProductHistory(p);
+		this.stationProductHistoryFactory.stationProductHistory(p2);
 		Iterator<StationProductHistory> it = this._repository.findAllByProduct(p2).iterator();
 		int i = 0;
 		while (it.hasNext())
@@ -62,15 +83,14 @@ public class StationProductHistoryRepositoryIT extends IntegrationTest<StationPr
 		assertThat(i).isEqualTo(1);
 	}
 
-	@Test
-	public void testFindAllByStation()
+	public void findAllByStation()
 	{
 		Station
-			s = this.factory.station("Station 01"),
-			s2 = this.factory.station("Station 02");
-		this.factory.stationProductHistory(s);
-		this.factory.stationProductHistory(s);
-		this.factory.stationProductHistory(s2);
+			s = this.stationFactory.station("Station 01"),
+			s2 = this.stationFactory.station("Station 02");
+		this.stationProductHistoryFactory.stationProductHistory(s);
+		this.stationProductHistoryFactory.stationProductHistory(s);
+		this.stationProductHistoryFactory.stationProductHistory(s2);
 		Iterator<StationProductHistory> it = this._repository.findAllByStation(s).iterator();
 		int i = 0;
 		while (it.hasNext())
