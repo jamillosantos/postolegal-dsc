@@ -6,11 +6,11 @@ import br.edu.ifrn.postolegal.domain.Station;
 import br.edu.ifrn.postolegal.domain.StationProductHistory;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.Set;
+import java.util.List;
 
 public interface StationProductHistoryRepository extends CrudRepository<StationProductHistory, Long>
 {
-	Set<StationProductHistory> findAllByStation(Station station);
+	List<StationProductHistory> findAllByStation(Station station);
 
-	Set<StationProductHistory> findAllByProduct(Product product);
+	List<StationProductHistory> findAllByProduct(Product product);
 }

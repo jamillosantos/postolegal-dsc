@@ -1,7 +1,9 @@
 package br.edu.ifrn.postolegal.service;
 
 import br.edu.ifrn.postolegal.PostoLegalApplication;
+import br.edu.ifrn.postolegal.domain.Station;
 import br.edu.ifrn.postolegal.domain.StationProduct;
+import br.edu.ifrn.postolegal.domain.StationProductHistory;
 import br.edu.ifrn.postolegal.persistence.ProductFactory;
 import br.edu.ifrn.postolegal.persistence.StationFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -10,6 +12,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
+
+import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,6 +25,9 @@ public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 {
 	@Inject
 	private StationProductService _service;
+
+	@Inject
+	private StationProductHistoryService _historyService;
 
 	@Inject
 	private ProductFactory productFactory;
@@ -35,13 +43,17 @@ public class StationProductServiceIT extends AbstractTestNGSpringContextTests
 	public void testSave_Success() throws Exception
 	{
 		long count = this._service.count();
+		Station station = this.stationFactory.station();
 		StationProduct s = StationProduct.builder()
 			.product(this.productFactory.product())
-			.station(this.stationFactory.station())
+			.station(station)
 			.price(PRICE_VALID)
 			.build();
 		this._service.save(s);
 		assertThat(this._service.count()).isEqualTo(count + 1);
+		List<StationProductHistory> list = this._historyService.findAllByStation(station);
+		StationProductHistory mostRecent = list.get(list.size() - 1);
+		assertThat(mostRecent.getPrice()).isEqualTo(s.getPrice());
 	}
 
 	@Test(expectedExceptions = RequiredException.class)

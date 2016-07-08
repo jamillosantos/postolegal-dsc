@@ -7,6 +7,8 @@ import br.edu.ifrn.postolegal.persistence.StationProductHistoryRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
+import java.util.Set;
 
 @Named
 public class StationProductHistoryService extends Service<StationProductHistory, Long>
@@ -33,12 +35,12 @@ public class StationProductHistoryService extends Service<StationProductHistory,
 			throw new RequiredException("data");
 	}
 
-	public Iterable<StationProductHistory> findAllByProduct(Product product)
+	public List<StationProductHistory> findAllByProduct(Product product)
 	{
 		return ((StationProductHistoryRepository)this.getRepository()).findAllByProduct(product);
 	}
 
-	public Iterable<StationProductHistory> findAllByStation(Station station)
+	public List<StationProductHistory> findAllByStation(Station station)
 	{
 		return ((StationProductHistoryRepository)this.getRepository()).findAllByStation(station);
 	}
