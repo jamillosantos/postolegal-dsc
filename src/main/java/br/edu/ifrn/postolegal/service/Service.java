@@ -1,9 +1,11 @@
 package br.edu.ifrn.postolegal.service;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
+@Transactional(readOnly = true)
 public abstract class Service<T, ID extends Serializable>
 {
 	private CrudRepository<T, ID> repository;
@@ -21,12 +23,14 @@ public abstract class Service<T, ID extends Serializable>
 	protected void validate(T object) throws ValidationException
 	{ }
 
+	@Transactional
 	public void save(T object) throws Exception
 	{
 		this.validate(object);
 		this.repository.save(object);
 	}
 
+	@Transactional
 	public void delete(T object)
 	{
 		this.repository.delete(object);
@@ -37,6 +41,7 @@ public abstract class Service<T, ID extends Serializable>
 		return this.repository.findAll();
 	}
 
+	@Transactional
 	public void deleteAll()
 	{
 		this.repository.deleteAll();
