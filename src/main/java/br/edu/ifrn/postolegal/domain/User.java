@@ -1,5 +1,6 @@
 package br.edu.ifrn.postolegal.domain;
 
+import br.edu.ifrn.postolegal.service.RequiredException;
 import lombok.*;
 
 import java.io.Serializable;
@@ -44,5 +45,17 @@ public class User implements Serializable, Comparable<User>
 	public int compareTo(User user)
 	{
 		return this.name.compareTo(user.name);
+	}
+
+	public void validate() throws RequiredException
+	{
+		if ((this.getName() == null) || this.getName().equals(""))
+			throw new RequiredException("nome");
+
+		if ((this.getEmail() == null) || this.getEmail().equals(""))
+			throw new RequiredException("email");
+
+		if ((this.getPassword() == null) || this.getPassword().equals(""))
+			throw new RequiredException("senha");
 	}
 }

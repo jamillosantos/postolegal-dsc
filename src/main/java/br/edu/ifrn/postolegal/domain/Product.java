@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-/**
- * @author J. Santos &lt;jamillo@gmail.com&gt;
- */
 @Getter
 @Setter
 @ToString(exclude = {"stations"})
