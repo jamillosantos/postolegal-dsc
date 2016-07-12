@@ -1,16 +1,5 @@
 server:
   port: 7070
-endpoints:
-  shutdown:
-    enabled: true
-    path: /sair
-security:
-  user:
-    name: admin
-    password: 12345
-management:
-  security:
-    role: SUPERUSER
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postolegal
