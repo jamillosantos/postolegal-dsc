@@ -186,7 +186,14 @@ public abstract class CrudMBean<T extends Object, ID extends Serializable>
 
 	protected void insert(T bean)
 	{
-		this.service.save(bean);
+		try
+		{
+			this.service.save(bean);
+		}
+		catch (Exception e)
+		{
+			this.tratarException("??", "insert", e);
+		}
 	}
 
 	protected T processBeforeInsertUpdate(T bean)
@@ -253,7 +260,14 @@ public abstract class CrudMBean<T extends Object, ID extends Serializable>
 
 	protected void update(T bean)
 	{
-		this.service.save(bean);
+		try
+		{
+			this.service.save(bean);
+		}
+		catch (Exception e)
+		{
+			this.tratarException("??", "update", e);
+		}
 	}
 
 	protected T processBeforeUpdate(T bean)
