@@ -47,6 +47,11 @@ public class Vehicle implements Serializable, Comparable<Vehicle>
 	@Column(nullable = false)
 	private String licensePlate;
 
+	public String getDescription()
+	{
+		return String.format("%s %s %d", this.model, this.engine, this.year);
+	}
+
 	@Override
 	public int compareTo(Vehicle vehicle)
 	{
