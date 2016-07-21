@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://ifrn.edu.br/conta"
+                template="layout/template.xhtml">
+    <ui:define name="content">
+        <c:crud title="Postos" managedBean="#{stationCrudMBean}" showDeleteActionLink="true">
+            <ui:define name="listColumns">
+                <p:column headerText="Nome" sortBy="#{bean.name}" filterBy="#{bean.name}" >
+                    <h:outputText value="#{bean.name}" />
+                </p:column>
+            </ui:define>
+            <ui:define name="detail">
+                <h:panelGrid columns="2" cellpadding="3">
+                    <c:text readonly="true" value="#{stationCrudMBean.bean.name}" label="Nome" />
+                </h:panelGrid>
+            </ui:define>
+            <ui:define name="insert">
+                <h:panelGrid columns="2" cellpadding="3">
+                    <c:text id="insertName" required="true" value="#{stationCrudMBean.bean.name}" label="Nome" />
+                    <c:number id="insertLatitude" required="true" value="#{stationCrudMBean.bean.latitude}" label="Latitude" />
+                    <c:number id="insertLongitude" required="true" value="#{stationCrudMBean.bean.longitude}" label="Longitude" />
+                </h:panelGrid>
+            </ui:define>
+            <ui:define name="update">
+                <h:panelGrid columns="2" cellpadding="3">
+                    <c:select id="updateStation" required="true" value="#{stationCrudMBean.bean.name}" label="Nome"/>
+                    <c:number id="updateLatitude" required="true" value="#{stationCrudMBean.bean.latitude}" label="Latitude" />
+                    <c:number id="updateLongitude" required="true" value="#{stationCrudMBean.bean.longitude}" label="Longitude" />
+                </h:panelGrid>
+            </ui:define>
+        </c:crud>
+    </ui:define>
+</ui:composition>
