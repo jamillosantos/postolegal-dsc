@@ -33,6 +33,7 @@
                     </h:panelGrid>
                 </ui:define>
             </c:crud>
+            <p:chart type="bar" model="#{stationProductHistoryCrudMBean.chart}" style="height:300px"/>
         </p:outputPanel>
         <p:outputPanel rendered="#{!stationProductHistoryCrudMBean.hasStationProduct()}">Nenhum produto foi selecionado.</p:outputPanel>
     </ui:define>
