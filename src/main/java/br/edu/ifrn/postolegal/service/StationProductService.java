@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.Date;
 
 @Named
-public class StationProductService extends Service<StationProduct, StationProductId>
+public class StationProductService extends Service<StationProduct, Long>
 {
 	@Inject
 	private StationProductHistoryService _historyService;

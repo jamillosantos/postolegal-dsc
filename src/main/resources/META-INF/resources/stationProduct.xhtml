@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://ifrn.edu.br/conta"
+                template="layout/template.xhtml">
+    <ui:define name="content">
+        <p:outputPanel rendered="#{stationProductCrudMBean.hasStation()}">
+            <c:crud rendered="#{stationProductCrudMBean.hasStation()}" title="Produtos do #{stationProductCrudMBean.station.name}" managedBean="#{stationProductCrudMBean}" showDeleteActionLink="true">
+                <ui:define name="listColumns">
+                    <p:column headerText="Produto" sortBy="#{bean.product.title}" filterBy="#{bean.product.title}" >
+                        <h:outputText value="#{bean.product.title}" />
+                    </p:column>
+                    <p:column headerText="Preço" sortBy="#{bean.price}" filterBy="#{bean.price}" >
+                        <h:outputText value="#{bean.price}" />
+                    </p:column>
+                </ui:define>
+                <ui:define name="detail">
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <c:text id="detailStation" readonly="true" value="#{stationProductCrudMBean.bean.product.title}" label="Posto" />
+                        <c:text id="detailPrice" readonly="true" value="#{stationProductCrudMBean.bean.price}" label="Preço" />
+                    </h:panelGrid>
+                </ui:define>
+                <ui:define name="insert">
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <c:text id="insertStation" readonly="true" value="#{stationProductCrudMBean.station.name}" label="Produto" />
+                        <c:select id="insertProduct" required="true" value="#{stationProductCrudMBean.bean.product}" label="Dono" options="#{productOptions}"/>
+                        <c:currency id="insertPrice" required="true" value="#{stationProductCrudMBean.bean.price}" label="Preço" />
+                    </h:panelGrid>
+                </ui:define>
+                <ui:define name="update">
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <c:text id="updateStation" readonly="true" value="#{stationProductCrudMBean.station.name}" label="Produto" />
+                        <c:select id="updateProduct" required="true" value="#{stationProductCrudMBean.bean.product}" label="Dono" options="#{productOptions}"/>
+                        <c:currency id="updatePrice" required="true" value="#{stationProductCrudMBean.bean.price}" label="Preço" />
+                    </h:panelGrid>
+                </ui:define>
+            </c:crud>
+        </p:outputPanel>
+        <p:outputPanel rendered="#{!stationProductCrudMBean.hasStation()}">Nenhum posto foi selecionado.</p:outputPanel>
+    </ui:define>
+</ui:composition>

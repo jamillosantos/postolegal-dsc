@@ -7,7 +7,6 @@ import javax.inject.Named;
 
 @ViewScoped
 @Named
-
 public class ProductCrudMBean extends CrudMBean<Product, Long>
 {
 	@Override

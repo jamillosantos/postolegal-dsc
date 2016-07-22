@@ -65,6 +65,7 @@ public abstract class CrudMBean<T extends Object, ID extends Serializable>
 
 	protected static final String INSERT = "INSERT";
 
+	@Getter
 	private Service<T, ID> service;
 
 	@Inject

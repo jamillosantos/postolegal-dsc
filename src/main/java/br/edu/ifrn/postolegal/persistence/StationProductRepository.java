@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
 
-public interface StationProductRepository extends CrudRepository<StationProduct, StationProductId>
+public interface StationProductRepository extends CrudRepository<StationProduct, Long>
 {
 	Set<StationProduct> findAllByProduct(Product product);
 

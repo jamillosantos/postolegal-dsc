@@ -51,4 +51,9 @@ public abstract class Service<T, ID extends Serializable>
 	{
 		return this.repository.count();
 	}
+
+	public T findOne(ID id)
+	{
+		return this.repository.findOne(id);
+	}
 }
