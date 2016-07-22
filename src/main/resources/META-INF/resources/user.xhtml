@@ -9,10 +9,10 @@
     <ui:define name="content">
         <c:crud title="Usuarios" managedBean="#{userCrudMBean}" showDeleteActionLink="true">
             <ui:define name="listColumns">
-                <p:column headerText="User" sortBy="#{bean.name}" filterBy="#{bean.name}" >
+                <p:column headerText="Usuário" sortBy="#{bean.name}" filterBy="#{bean.name}" >
                     <h:outputText value="#{bean.name}" />
                 </p:column>
-                <p:column headerText="email" sortBy="#{bean.email}" filterBy="#{bean.email}" >
+                <p:column headerText="E-mail" sortBy="#{bean.email}" filterBy="#{bean.email}" >
                     <h:outputText value="#{bean.email}" />
                 </p:column>
                 <p:column headerText="">

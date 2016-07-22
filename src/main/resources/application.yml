@@ -3,8 +3,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postolegal
-    username: postgres
-    password: postgres
+    username: postolegal
+    password: 12345
     # Number of ms to wait before throwing an exception if no connection is available.
     max-wait: 1000
     # Maximum number of active connections that can be allocated from this pool at the same time.
@@ -17,3 +17,6 @@ spring:
     hibernate:
       ddl-auto: update
       naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+jsf:
+  primefaces:
+    theme: bootstrap

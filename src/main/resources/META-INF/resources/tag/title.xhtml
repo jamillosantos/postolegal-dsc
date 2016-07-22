@@ -14,11 +14,7 @@
     <c:set var="id" value="${fn:replace(label,' ', '_')}" />
 
     <div id="tituloAtividade">
-        <h1 class="title ui-widget-header ui-corner-all">
-            <span style="float:left;padding-right: 10px;">
-                #{title}
-            </span>
-            <ui:insert name="afterTitle" />
-        </h1>
+        <h1>#{title}</h1>
+        <ui:insert name="afterTitle" />
     </div>
 </ui:composition>
