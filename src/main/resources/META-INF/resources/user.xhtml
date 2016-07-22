@@ -4,7 +4,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:c="http://ifrn.edu.br/conta"
+                xmlns:c="http://ifrn.edu.br/conta" xmlns:f="http://java.sun.com/jsf/core"
                 template="layout/template.xhtml">
     <ui:define name="content">
         <c:crud title="Usuarios" managedBean="#{userCrudMBean}" showDeleteActionLink="true">
@@ -14,6 +14,11 @@
                 </p:column>
                 <p:column headerText="email" sortBy="#{bean.email}" filterBy="#{bean.email}" >
                     <h:outputText value="#{bean.email}" />
+                </p:column>
+                <p:column headerText="">
+                    <h:link value="Ver veículos" outcome="vehicle.xhtml">
+                        <f:param name="userId" value="#{bean.id}"/>
+                    </h:link>
                 </p:column>
             </ui:define>
             <ui:define name="detail">

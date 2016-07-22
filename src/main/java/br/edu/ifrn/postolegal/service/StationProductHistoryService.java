@@ -2,13 +2,13 @@ package br.edu.ifrn.postolegal.service;
 
 import br.edu.ifrn.postolegal.domain.Product;
 import br.edu.ifrn.postolegal.domain.Station;
+import br.edu.ifrn.postolegal.domain.StationProduct;
 import br.edu.ifrn.postolegal.domain.StationProductHistory;
 import br.edu.ifrn.postolegal.persistence.StationProductHistoryRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
-import java.util.Set;
 
 @Named
 public class StationProductHistoryService extends Service<StationProductHistory, Long>
@@ -43,5 +43,11 @@ public class StationProductHistoryService extends Service<StationProductHistory,
 	public List<StationProductHistory> findAllByStation(Station station)
 	{
 		return ((StationProductHistoryRepository)this.getRepository()).findAllByStation(station);
+	}
+
+	public List<StationProductHistory> findAllByStationProduct(StationProduct stationProduct)
+	{
+		return ((StationProductHistoryRepository)this.getRepository()).findAllByStationAndProduct(
+			stationProduct.getStation(), stationProduct.getProduct());
 	}
 }

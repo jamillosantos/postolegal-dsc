@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://ifrn.edu.br/conta" xmlns:f="http://java.sun.com/jsf/core"
+                template="layout/template.xhtml">
+    <ui:define name="content">
+        <p:outputPanel rendered="#{stationProductHistoryCrudMBean.hasStationProduct()}">
+            <h1>#{stationProductHistoryCrudMBean.stationProduct.product.title} em <h:link value="#{stationProductHistoryCrudMBean.stationProduct.station.name}" outcome="stationProduct.xhtml">
+                <f:param name="stationId" value="#{stationProductHistoryCrudMBean.stationProduct.station.id}"/>
+            </h:link></h1>
+            <c:crud title="Histórico" managedBean="#{stationProductHistoryCrudMBean}" showDeleteActionLink="false" showInsert="false" showUpdateActionLink="false">
+                <ui:define name="listColumns">
+                    <p:column headerText="Preço" sortBy="#{bean.date}" filterBy="#{bean.date}" >
+                        <h:outputText value="#{bean.date}" />
+                    </p:column>
+                    <p:column headerText="Preço" sortBy="#{bean.price}" filterBy="#{bean.price}" >
+                        <h:outputText value="#{bean.price}" />
+                    </p:column>
+                </ui:define>
+                <ui:define name="detail">
+                    <h:panelGrid columns="2" cellpadding="3">
+                    </h:panelGrid>
+                </ui:define>
+                <ui:define name="insert">
+                    <h:panelGrid columns="2" cellpadding="3">
+                    </h:panelGrid>
+                </ui:define>
+                <ui:define name="update">
+                    <h:panelGrid columns="2" cellpadding="3">
+                    </h:panelGrid>
+                </ui:define>
+            </c:crud>
+        </p:outputPanel>
+        <p:outputPanel rendered="#{!stationProductHistoryCrudMBean.hasStationProduct()}">Nenhum produto foi selecionado.</p:outputPanel>
+    </ui:define>
+</ui:composition>
