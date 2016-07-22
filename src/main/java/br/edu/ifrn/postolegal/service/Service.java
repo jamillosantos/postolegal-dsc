@@ -1,5 +1,6 @@
 package br.edu.ifrn.postolegal.service;
 
+import br.edu.ifrn.postolegal.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 

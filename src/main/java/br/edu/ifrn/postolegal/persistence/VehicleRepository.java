@@ -1,8 +1,11 @@
 package br.edu.ifrn.postolegal.persistence;
+import br.edu.ifrn.postolegal.domain.User;
 import br.edu.ifrn.postolegal.domain.Vehicle;
 import org.springframework.data.repository.CrudRepository;
 
 public interface VehicleRepository extends CrudRepository<Vehicle, Long>
 {
 	Vehicle findByLicensePlate(String plate);
+
+	Iterable<Vehicle> findAllByUser(User user);
 }

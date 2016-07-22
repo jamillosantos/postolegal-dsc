@@ -1,5 +1,6 @@
 package br.edu.ifrn.postolegal.service;
 
+import br.edu.ifrn.postolegal.domain.User;
 import br.edu.ifrn.postolegal.domain.Vehicle;
 import br.edu.ifrn.postolegal.persistence.VehicleRepository;
 
@@ -30,4 +31,10 @@ public class VehicleService extends Service<Vehicle, Long>
 		if (object.getYear() == null)
 			throw new RequiredException("ano");
 	}
+
+	public Iterable<Vehicle> findAllByUser(User user)
+	{
+		return ((VehicleRepository)this.getRepository()).findAllByUser(user);
+	}
+
 }

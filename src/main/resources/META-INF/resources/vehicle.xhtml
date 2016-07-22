@@ -7,43 +7,44 @@
                 xmlns:c="http://ifrn.edu.br/conta"
                 template="layout/template.xhtml">
     <ui:define name="content">
-        <c:crud title="Veículos" managedBean="#{vehicleCrudMBean}" showDeleteActionLink="true">
-            <ui:define name="listColumns">
-                <p:column headerText="Dono" sortBy="#{bean.user.name}" filterBy="#{bean.user.name}" >
-                    <h:outputText value="#{bean.user.name}" />
-                </p:column>
-                <p:column headerText="Veículo" sortBy="#{bean.description}" filterBy="#{bean.description}" >
-                    <h:outputText value="#{bean.description}" />
-                </p:column>
-                <p:column headerText="Placa" sortBy="#{bean.licensePlate}" filterBy="#{bean.licensePlate}" >
-                    <h:outputText value="#{bean.licensePlate}" />
-                </p:column>
-            </ui:define>
-            <ui:define name="detail">
-                <h:panelGrid columns="2" cellpadding="3">
-                    <c:text readonly="true" value="#{vehicleCrudMBean.bean.user.name}" label="Dono" />
-                    <c:text readonly="true" value="#{vehicleCrudMBean.bean.description}" label="Descrição" />
-                    <c:text readonly="true" value="#{vehicleCrudMBean.bean.licensePlate}" label="Placa" />
-                </h:panelGrid>
-            </ui:define>
-            <ui:define name="insert">
-                <h:panelGrid columns="2" cellpadding="3">
-                    <c:select id="insertUser" required="true" value="#{vehicleCrudMBean.bean.user}" label="Dono" options="#{userOptions}"/>
-                    <c:text id="insertModel" required="true" value="#{vehicleCrudMBean.bean.model}" label="Modelo" />
-                    <c:text id="insertEngine" required="true" value="#{vehicleCrudMBean.bean.engine}" label="Motor" />
-                    <c:text id="insertYear" required="true" value="#{vehicleCrudMBean.bean.year}" label="Ano" />
-                    <c:text id="insertLicensePlate" required="true" value="#{vehicleCrudMBean.bean.licensePlate}" label="Placa" />
-                </h:panelGrid>
-            </ui:define>
-            <ui:define name="update">
-                <h:panelGrid columns="2" cellpadding="3">
-                    <c:select id="updateUser" required="true" value="#{vehicleCrudMBean.bean.user}" label="Dono" options="#{userOptions}"/>
-                    <c:text id="updateModel" required="true" value="#{vehicleCrudMBean.bean.model}" label="Modelo" />
-                    <c:text id="updateEngine" required="true" value="#{vehicleCrudMBean.bean.engine}" label="Motor" />
-                    <c:text id="updateYear" required="true" value="#{vehicleCrudMBean.bean.year}" label="Ano" />
-                    <c:text id="updateLicensePlate" required="true" value="#{vehicleCrudMBean.bean.licensePlate}" label="Placa" />
-                </h:panelGrid>
-            </ui:define>
-        </c:crud>
+        <p:outputPanel rendered="#{vehicleCrudMBean.hasUser()}">
+            <c:crud title="Veículos de #{vehicleCrudMBean.user.name}" managedBean="#{vehicleCrudMBean}" showDeleteActionLink="true">
+                <ui:define name="listColumns">
+                    <p:column headerText="Veículo" sortBy="#{bean.description}" filterBy="#{bean.description}" >
+                        <h:outputText value="#{bean.description}" />
+                    </p:column>
+                    <p:column headerText="Placa" sortBy="#{bean.licensePlate}" filterBy="#{bean.licensePlate}" >
+                        <h:outputText value="#{bean.licensePlate}" />
+                    </p:column>
+                </ui:define>
+                <ui:define name="detail">
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <c:text readonly="true" value="#{vehicleCrudMBean.bean.description}" label="Descrição" />
+                        <c:text readonly="true" value="#{vehicleCrudMBean.bean.licensePlate}" label="Placa" />
+                    </h:panelGrid>
+                </ui:define>
+                <ui:define name="insert">
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <c:text id="insertUser" readonly="true" value="#{vehicleCrudMBean.user.name}" label="Dono"/>
+                        <c:text id="insertModel" required="true" value="#{vehicleCrudMBean.bean.model}" label="Modelo" />
+                        <c:text id="insertEngine" required="true" value="#{vehicleCrudMBean.bean.engine}" label="Motor" />
+                        <c:text id="insertYear" required="true" value="#{vehicleCrudMBean.bean.year}" label="Ano" />
+                        <c:text id="insertLicensePlate" required="true" value="#{vehicleCrudMBean.bean.licensePlate}" label="Placa" />
+                    </h:panelGrid>
+                </ui:define>
+                <ui:define name="update">
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <c:text id="updateUser" readonly="true" value="#{vehicleCrudMBean.bean.user.name}" label="Dono"/>
+                        <c:text id="updateModel" required="true" value="#{vehicleCrudMBean.bean.model}" label="Modelo" />
+                        <c:text id="updateEngine" required="true" value="#{vehicleCrudMBean.bean.engine}" label="Motor" />
+                        <c:text id="updateYear" required="true" value="#{vehicleCrudMBean.bean.year}" label="Ano" />
+                        <c:text id="updateLicensePlate" required="true" value="#{vehicleCrudMBean.bean.licensePlate}" label="Placa" />
+                    </h:panelGrid>
+                </ui:define>
+            </c:crud>
+        </p:outputPanel>
+        <p:outputPanel rendered="#{!vehicleCrudMBean.hasUser()}">
+            Nenhum usuário foi selecionado.
+        </p:outputPanel>
     </ui:define>
 </ui:composition>
